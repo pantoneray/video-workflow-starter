@@ -2,6 +2,37 @@
 
 供 Mac / Windows 的 Codex 用户自行安装的视频工作流 Skill。支持批量切片、本地资料选文与译审、HeyGen 网页校对制作、字幕包装和 YouTube 私密上传。
 
+## 复制给 Codex，开始安装
+
+在本机 Codex 新建聊天，复制下面整段提示词。Codex 会检查环境、安装依赖并引导配置；账号授权、密钥填写和频道选择需由你本人完成。Windows 的 HeyGen 使用 WSL，跨设备 Windows 安装尚未完成实测。
+
+```text
+请帮我安装并配置这个视频工作流 Skill：
+https://github.com/pantoneray/video-workflow-starter
+
+请先阅读仓库的 README.md、普通使用说明.md 和 INTEGRATIONS.md，
+识别我的操作系统，从正式 Release 下载完整安装包，安装到本机
+Codex 的技能目录。模板、字体和脚本使用包内副本。
+
+请检查现有环境，安装缺少的依赖。先询问我需要哪些功能：
+批量切片、资料选文与翻译、HeyGen、字幕包装、YouTube 私密上传。
+
+引导我设置素材目录、资料库目录、输出目录和目标语言。
+个人配置和账号文件放在独立项目目录，保留已有配置及原素材。
+
+需要 Gemini、HeyGen 或 YouTube 时，请逐项引导配置。
+密钥只保存在本机，不要求我把密钥粘贴到聊天。
+HeyGen 使用 OAuth，引导我授权正确账号；
+YouTube 核对我授权的目标频道。
+Windows 的 HeyGen 按包内说明使用 WSL。
+
+安装后执行环境检查和可离线完成的样本测试，
+告诉我已能使用的功能、尚缺的配置，以及如何刷新 Codex 加载 Skill。
+安装阶段不要提交付费生成任务或上传视频。
+```
+
+安装后可以直接说：“扫描这个视频文件夹，优先清晰源片，总共选出 10 条 30–45 秒切片，每个视频最多 3 条，同时扫描 2 个视频，输出到新目录。”更多用法见[安装使用说明](普通使用说明.md)。
+
 **先读 [安装使用说明](普通使用说明.md)。** 使用发布 ZIP 时解压整个 video-workflow-starter 文件夹，放入本机技能目录后按需安装依赖。六套字幕模板和字体已随包提供。
 
 公开分发版本：2.3.21。隐私检查见 [PRIVACY.md](PRIVACY.md)，功能验证与平台边界见 [VERIFICATION.md](VERIFICATION.md)。
