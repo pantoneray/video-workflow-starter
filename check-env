@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")"
+case "$(uname -r)" in *microsoft*|*Microsoft*)
+  if [ -x .venv-wsl/bin/python ]; then
+    exec .venv-wsl/bin/python scripts/check_env.py "$@"
+  fi
+  ;;
+esac
+if [ -x .venv/bin/python ]; then
+  exec .venv/bin/python scripts/check_env.py "$@"
+fi
+exec python3 scripts/check_env.py "$@"

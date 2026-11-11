@@ -1,0 +1,27 @@
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+.venv*/
+.tools/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+*.pem
+*.key
+credentials*.json
+client_secret*.json
+token*.json
+*token-cache*
+# User projects and generated media
+projects/
+runs/
+output/
+outputs/
+tools/shorts-caption-templates/tests/out/
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.zip

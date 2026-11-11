@@ -1,0 +1,187 @@
+{
+ "id": "C_dialogue_switch",
+ "name_zh": "双机位对谈切换",
+ "name_en": "Two-camera dialogue",
+ "refs": [
+  {
+   "id": "00sgwEA_lQw",
+   "url": "https://youtube.com/shorts/00sgwEA_lQw",
+   "channel": "The Ezra Klein Show（@EzraKleinShow）",
+   "dur_s": 84.31,
+   "shots": 17,
+   "shot_median_s": 4.09,
+   "cuts_per_10s": 1.9,
+   "lufs": -15.5,
+   "voice_p90_db": -11.4,
+   "floor_p20_db": -41.8,
+   "gap_voice_minus_floor_db": 30.4,
+   "silences_lt_-40dB": 18,
+   "vtt_wps": 4.81
+  },
+  {
+   "id": "6UW1Dkwm_LI",
+   "url": "https://youtube.com/shorts/6UW1Dkwm_LI",
+   "channel": "The Ezra Klein Show（@EzraKleinShow）",
+   "dur_s": 163.31,
+   "shots": 30,
+   "shot_median_s": 4.5,
+   "cuts_per_10s": 1.78,
+   "lufs": -17.2,
+   "voice_p90_db": -13.0,
+   "floor_p20_db": -27.2,
+   "gap_voice_minus_floor_db": 14.2,
+   "silences_lt_-40dB": 9,
+   "vtt_wps": null
+  },
+  {
+   "id": "eToQBgPbSfo",
+   "url": "https://www.youtube.com/shorts/eToQBgPbSfo",
+   "channel": "André Duqum（@Andreduqum）",
+   "dur_s": 61.53,
+   "shots": 5,
+   "shot_median_s": 5.92,
+   "cuts_per_10s": 0.65,
+   "lufs": -19.0,
+   "voice_p90_db": -15.8,
+   "floor_p20_db": -25.6,
+   "gap_voice_minus_floor_db": 9.8,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": null
+  }
+ ],
+ "use_when": "两人或多人的对话都可以用：问答、对谈、访谈、连线。只有单机位时用推近模拟换镜；旁白里引用提问也可以用。",
+ "avoid_when": "纯独白、没有问答结构时（改用 B / D / E）。",
+ "layout": {
+  "mode": "fullbleed",
+  "nameplate": {
+   "x": 80,
+   "y": 1290,
+   "style": "衬线体姓名＋小号大写头衔，左下，首次出场 2–3 秒"
+  },
+  "caption": {
+   "y_center": 1500
+  },
+  "face_zone": [
+   420,
+   1150
+  ],
+  "note": "v1.1：名牌下移到 y≈1230–1330；实测：字幕 y≈1460–1550（00sg），名牌 y≈1150–1250"
+ },
+ "timeline": [
+  {
+   "t": "0–4s",
+   "what": "提问者的问题作开场钩子（00sg 前 4s 是主持人提问）"
+  },
+  {
+   "t": "4s",
+   "what": "切到讲者，名牌出现 2–3s"
+  },
+  {
+   "t": "中段",
+   "what": "回答为主，偶尔切回提问者反应镜头"
+  },
+  {
+   "t": "最后 1.5–2s",
+   "what": "纯色品牌结尾卡（00sg 结尾是黑底品牌字）"
+  }
+ ],
+ "rhythm": {
+  "shot_len_s": [
+   3.5,
+   6.0
+  ],
+  "measured": "镜头中位：00sg 4.09s、6UW1 4.50s、eToQ 5.92s",
+  "punch_in": {
+   "scale": 1.08,
+   "every_s": 4.5
+  }
+ },
+ "captions": {
+  "font": "sans_med",
+  "size": 64,
+  "case": "sentence",
+  "color": "#FFFFFF",
+  "highlight": "#FFFFFF",
+  "outline": 0,
+  "shadow": 3,
+  "box": false,
+  "max_words": 7,
+  "max_chars_latin": 34,
+  "max_chars_zh": 14,
+  "y_center": 1500,
+  "animation": "phrase",
+  "inferred": "整句出现、整句消失（推断）"
+ },
+ "audio": {
+  "target_lufs": -14,
+  "true_peak_db": -1,
+  "music_source_rule": "只用免版税且授权清楚的音乐（YouTube 音频库、可商用 CC0），不用参考视频里的音乐",
+  "duck": "人声出现时音乐自动再压低 6–8 dB（sidechain）",
+  "music": "否",
+  "music_db_under_voice": null,
+  "measured_note": "00sg、6UW1 有多次 -40 dB 以下的静音，判断为无音乐床（推断）；eToQ 有低音乐床。佛法问答建议不加音乐。"
+ },
+ "copy": {
+  "title_formula": "把提问者的问题原样作标题",
+  "example_zh": "弟子问：痛苦和受苦有什么区别？（示例结构）",
+  "example_id": "Murid bertanya: apa beda rasa sakit dan penderitaan?（待译者核对）",
+  "example_mn": "Шавь асуув: өвдөлт ба зовлон хоёр ямар ялгаатай вэ?（待译者核对）",
+  "caption_rule": "问与答都按原话翻译；提问者若非公开人物，不写姓名"
+ },
+ "do": [
+  "名牌写清讲者姓名与身份",
+  "保留回答的完整逻辑"
+ ],
+ "dont": [
+  "把不同场合的回答剪成一问一答",
+  "未经同意露出提问者正脸（隐私）"
+ ],
+ "version": "v1.4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30
+ },
+ "safe_area": {
+  "note": "Shorts 界面遮挡区（通用经验，非本次测量）：底部约 380px 放频道名/标题，右侧约 140px 放按钮，顶部约 200px 放搜索栏。口播字幕一律放在下方字幕带 y 1300–1560（中心线），左右各留 140px，避开右侧按钮和底部约 360px 的界面区。人脸区（9:16 全屏近景约 y 420–1150）禁止放任何字幕或大字。",
+  "caption_band_y": [
+   1300,
+   1560
+  ],
+  "face_zone_fullbleed": [
+   420,
+   1150
+  ],
+  "title_safe_y": [
+   200,
+   1560
+  ],
+  "right_margin_px": 140
+ },
+ "fonts": {
+  "latin": {
+   "sans_black": "Tpl Noto Sans Black",
+   "sans_xb": "Tpl Montserrat ExtraBold",
+   "sans_cond": "Tpl Noto Sans Condensed ExtraBold",
+   "sans_med": "Tpl Noto Sans Medium",
+   "serif_bold": "Tpl Noto Serif Bold",
+   "serif_med": "Tpl Noto Serif Medium",
+   "serif_italic": "Tpl Noto Serif Italic"
+  },
+  "zh": {
+   "sans_black": "Tpl Noto Sans SC ExtraBold",
+   "sans_xb": "Tpl Noto Sans SC ExtraBold",
+   "sans_cond": "Tpl Noto Sans SC ExtraBold",
+   "sans_med": "Tpl Noto Sans SC Medium",
+   "serif_bold": "Tpl Noto Serif SC Bold",
+   "serif_med": "Tpl Noto Serif SC Bold",
+   "serif_italic": "Tpl Noto Serif SC Bold"
+  }
+ },
+ "rules": [
+  "字幕一律靠下，不得遮挡人脸：口播字幕中心 y 1300–1560，大字钩子同样放下方",
+  "只学风格：不用参考视频的画面、音乐、付费字体",
+  "标题不夸大、不误导，不改原意；引文标出处（宗教、知识类内容尤其如此）",
+  "标注「推断」的参数来自看帧，不是工具读出的数据"
+ ]
+}

@@ -1,0 +1,8 @@
+{
+  "video": {"type": "asset_id", "asset_id": "YOUR_ASSET_ID"},
+  "output_languages": ["English"],
+  "title": "My translated video",
+  "mode": "precision",
+  "translate_audio_only": false,
+  "enable_dynamic_duration": true
+}

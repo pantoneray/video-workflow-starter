@@ -1,0 +1,20 @@
+{
+  "min_seconds": 30,
+  "max_seconds": 45,
+  "min_short_side": 720,
+  "scene_threshold": 0.35,
+  "freeze_noise_db": -60,
+  "freeze_min_seconds": 0.7,
+  "black_min_seconds": 0.3,
+  "boundary_margin_seconds": 0.7,
+  "preview_frames": 5,
+  "agent_visual_review": [
+    "画面连续且主体全程适当入框",
+    "开头与结尾的动作自然，没有突兀截断",
+    "无明显卡顿、跳切、严重模糊、黑帧或干扰文字",
+    "适合本团队预期用途；人物与素材许可由团队另定",
+    "连续查看整段，挠脖子、挠头、喝水、举手、合掌、遮挡面部等特殊动作不能过多或频繁",
+    "禁止过多或频繁低头；起止不能截在上述动作中途",
+    "动作无法确认时不通过；记录动作时段、次数和持续情况，不以五张抽帧代替连续检查"
+  ]
+}

@@ -1,0 +1,188 @@
+{
+ "id": "E_episode_title_card",
+ "name_zh": "故事序号标题卡",
+ "name_en": "Episode title card",
+ "refs": [
+  {
+   "id": "m310Ej5tOiY",
+   "url": "https://youtube.com/shorts/m310Ej5tOiY",
+   "channel": "YogaPal（@yawningoutside4276）",
+   "dur_s": 140.78,
+   "shots": 11,
+   "shot_median_s": 12.55,
+   "cuts_per_10s": 0.71,
+   "lufs": -14.0,
+   "voice_p90_db": -9.6,
+   "floor_p20_db": -21.2,
+   "gap_voice_minus_floor_db": 11.5,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 4.69
+  },
+  {
+   "id": "BGb8tM9xZRc",
+   "url": "https://www.youtube.com/shorts/BGb8tM9xZRc",
+   "channel": "Daily Life Lessons（@DailyLifeLessons-d1z）",
+   "dur_s": 40.15,
+   "shots": 2,
+   "shot_median_s": 20.07,
+   "cuts_per_10s": 0.25,
+   "lufs": -9.9,
+   "voice_p90_db": -6.8,
+   "floor_p20_db": -13.2,
+   "gap_voice_minus_floor_db": 6.4,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": null
+  }
+ ],
+ "use_when": "插画与真人 Shorts 通用：凡是需要「序号＋标题」的系列内容都可以用，包括故事、公案、譬喻、系列开示、问答切片、课程分集。背景用 background_mode 切换：illustration＝自绘或生成的插画、空镜；footage＝真人讲话视频 9:16 铺满。15–90 秒。",
+ "avoid_when": "单条、没有系列感，且开头需要强钩子时，可以先接 F 再进 E，或改用 B。",
+ "background_mode": "illustration",
+ "background_modes": {
+  "illustration": {
+   "desc": "插画、空镜全屏铺满，缓慢推近"
+  },
+  "footage": {
+   "desc": "真人视频 9:16 铺满后整体下移 top_offset，顶部空出的部分用同一画面模糊填充并压暗，标题放在这条带里，不压头部和脸",
+   "top_offset": 220,
+   "header_y": 120,
+   "top_shade_h": 440
+  }
+ },
+ "layout": {
+  "mode": "illustrated",
+  "header": {
+   "y": 170,
+   "kicker": "• 第 1 集 •",
+   "style": "小号大写衬线标题，金色"
+  },
+  "caption": {
+   "y_center": 1480
+  },
+  "face_zone": [
+   420,
+   1150
+  ],
+  "note": "v1.1：字幕中心从 1560 上调到 1480，两行时也不进入底部界面区；实测：m310 顶部章节标题 y≈140–300，底部字幕 y≈1500–1650；BGb8 顶部白框标题 y≈320–475、字幕 y≈1520–1660"
+ },
+ "timeline": [
+  {
+   "t": "0–2s",
+   "what": "第一张图＋章节标题＋故事第一句"
+  },
+  {
+   "t": "每 2.5–12.5s",
+   "what": "换一张图（m310 中位 12.5s，BGb8 每句换图约 2.5s）"
+  },
+  {
+   "t": "每张图内",
+   "what": "缓慢推近 3–5%（推断）"
+  }
+ ],
+ "rhythm": {
+  "shot_len_s": [
+   4,
+   12
+  ],
+  "measured": "m310 镜头中位 12.55s（11 段）；BGb8 用叠化换图，场景检测只测到 2 次切换，目测约 2.5s 一张",
+  "ken_burns": {
+   "zoom_from": 1.0,
+   "zoom_to": 1.05,
+   "per_shot_s": 8
+  }
+ },
+ "captions": {
+  "font": "serif_med",
+  "size": 74,
+  "case": "sentence",
+  "color": "#E8E0D0",
+  "highlight": "#F2C46B",
+  "outline": 0,
+  "shadow": 4,
+  "max_words": 6,
+  "max_chars_latin": 30,
+  "max_chars_zh": 12,
+  "y_center": 1480,
+  "animation": "karaoke_fill",
+  "inferred": "已读的词变金色（推断自 m310 相邻帧）"
+ },
+ "header": {
+  "font": "serif_bold",
+  "size": 54,
+  "kicker_size": 30,
+  "color": "#F2C46B"
+ },
+ "audio": {
+  "target_lufs": -14,
+  "true_peak_db": -1,
+  "music_source_rule": "只用免版税且授权清楚的音乐（YouTube 音频库、可商用 CC0），不用参考视频里的音乐",
+  "duck": "人声出现时音乐自动再压低 6–8 dB（sidechain）",
+  "music": "是",
+  "music_db_under_voice": -20,
+  "measured_note": "m310、BGb8 都有持续音乐床，比人声峰值低约 6–12 dB（推断）。"
+ },
+ "copy": {
+  "title_formula": "「故事名｜一句点题」",
+  "example_zh": "盲龟遇浮木｜人身难得（示例结构，故事出处须标经名）",
+  "example_id": "Kura-kura buta dan kayu terapung | Langkanya terlahir sebagai manusia（待译者核对）",
+  "example_mn": "Сохор яст мэлхий ба хөвөгч мод | Хүний биеийн ховор（待译者核对）",
+  "caption_rule": "故事出处（经名/论名）写在描述栏"
+ },
+ "do": [
+  "序号和标题全系列统一格式",
+  "插画模式：插画风格全系列统一（同一提示词或画师），在描述栏标明插画为示意图",
+  "真人模式：标题放在头顶上方的压暗带里，不压头部和脸"
+ ],
+ "dont": [
+  "把示意图说成历史真实画面",
+  "用参考频道的插画",
+  "真人模式下把标题压在头上或脸上"
+ ],
+ "version": "v1.4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30
+ },
+ "safe_area": {
+  "note": "Shorts 界面遮挡区（通用经验，非本次测量）：底部约 380px 放频道名/标题，右侧约 140px 放按钮，顶部约 200px 放搜索栏。口播字幕一律放在下方字幕带 y 1300–1560（中心线），左右各留 140px，避开右侧按钮和底部约 360px 的界面区。人脸区（9:16 全屏近景约 y 420–1150）禁止放任何字幕或大字。",
+  "caption_band_y": [
+   1300,
+   1560
+  ],
+  "face_zone_fullbleed": [
+   420,
+   1150
+  ],
+  "title_safe_y": [
+   200,
+   1560
+  ],
+  "right_margin_px": 140
+ },
+ "fonts": {
+  "latin": {
+   "sans_black": "Tpl Noto Sans Black",
+   "sans_xb": "Tpl Montserrat ExtraBold",
+   "sans_cond": "Tpl Noto Sans Condensed ExtraBold",
+   "sans_med": "Tpl Noto Sans Medium",
+   "serif_bold": "Tpl Noto Serif Bold",
+   "serif_med": "Tpl Noto Serif Medium",
+   "serif_italic": "Tpl Noto Serif Italic"
+  },
+  "zh": {
+   "sans_black": "Tpl Noto Sans SC ExtraBold",
+   "sans_xb": "Tpl Noto Sans SC ExtraBold",
+   "sans_cond": "Tpl Noto Sans SC ExtraBold",
+   "sans_med": "Tpl Noto Sans SC Medium",
+   "serif_bold": "Tpl Noto Serif SC Bold",
+   "serif_med": "Tpl Noto Serif SC Bold",
+   "serif_italic": "Tpl Noto Serif SC Bold"
+  }
+ },
+ "rules": [
+  "字幕一律靠下，不得遮挡人脸：口播字幕中心 y 1300–1560，大字钩子同样放下方",
+  "只学风格：不用参考视频的画面、音乐、付费字体",
+  "标题不夸大、不误导，不改原意；引文标出处（宗教、知识类内容尤其如此）",
+  "标注「推断」的参数来自看帧，不是工具读出的数据"
+ ]
+}

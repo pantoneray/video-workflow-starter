@@ -1,0 +1,22 @@
+{
+  "paths": {
+    "input": null,
+    "output": null,
+    "life_corpus": [],
+    "deep_corpus": [],
+    "glossary": [],
+    "video_sources": [],
+    "speed_samples": [],
+    "subtitle_rules": [],
+    "brand_assets": [],
+    "cover_references": [],
+    "youtube_config": []
+  },
+  "language": "zh-CN",
+  "video": {
+    "target_width": null,
+    "target_height": null,
+    "target_fps": null,
+    "notes": "切片保留源片画幅与帧率；目标规格供个人剪辑流程使用"
+  }
+}

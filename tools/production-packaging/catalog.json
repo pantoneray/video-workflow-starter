@@ -1,0 +1,113 @@
+{
+  "version": "0.5",
+  "frame": [
+    1080,
+    1920
+  ],
+  "shorts_preview": {
+    "reading_area_xyxy": [
+      180,
+      1180,
+      900,
+      1530
+    ],
+    "caption_horizontal_anchor": "frame_center",
+    "font_px": 48,
+    "max_lines": 2,
+    "face_margin_px": 48,
+    "status": "pilot_geometry_requires_phone_preview"
+  },
+  "templates": [
+    {
+      "id": "portrait-caption",
+      "name": "人物居中＋分句字幕",
+      "geometry": "center_crop",
+      "use_for": "人脸和关键动作留在全屏竖裁画面内",
+      "status": "existing_renderer_new_geometry_pending",
+      "default_sound": "original_voice"
+    },
+    {
+      "id": "portrait-fixed-offset",
+      "name": "平移裁切框的全屏竖版",
+      "geometry": "fixed_portrait_crop",
+      "use_for": "画面居中时人脸靠边，平移裁切框可保留完整人脸和留白",
+      "status": "crop_proposal_pending_render",
+      "default_sound": "original_voice"
+    },
+    {
+      "id": "portrait-tracking",
+      "name": "轻量跟随的全屏竖版",
+      "geometry": "tracked_portrait_crop",
+      "use_for": "固定竖裁有头部出框风险，使用少量平滑横移并保持新位置",
+      "status": "isolated_sample",
+      "default_sound": "original_voice"
+    },
+    {
+      "id": "concept-insert",
+      "name": "竖版口播＋线稿解释卡",
+      "use_for": "需要解释一个关系或概念，具备可核对、可用的配图",
+      "status": "design_candidate",
+      "reference": "mg-styles-15",
+      "default_sound": "original_voice"
+    }
+  ],
+  "text_effects": [
+    {
+      "id": "sentence-fade",
+      "name": "分句轻淡入",
+      "status": "design_candidate",
+      "requires_word_timing": false,
+      "max_simultaneous": 1,
+      "style": {
+        "animation": "opacity_only",
+        "max_fade_ms": 120,
+        "text_color": "#FFFFFF",
+        "background": "#181614",
+        "background_opacity": 0.8
+      }
+    },
+    {
+      "id": "keyword-emphasis",
+      "name": "关键词加重或变色",
+      "status": "design_candidate",
+      "requires_word_timing": true,
+      "max_simultaneous": 1,
+      "style": {
+        "accent_color": "#F2CB81",
+        "max_highlighted_words": 1
+      }
+    },
+    {
+      "id": "quote-card",
+      "name": "单张金句卡",
+      "status": "design_candidate",
+      "requires_word_timing": false,
+      "max_simultaneous": 1,
+      "style": {
+        "panel": "own_region",
+        "copy": "approved_excerpt"
+      }
+    }
+  ],
+  "caption_styles": [
+    {
+      "id": "D_contemplative_phrase",
+      "name": "静观短语字幕",
+      "reference": "shorts-caption-templates",
+      "geometry": "fullbleed_9x16",
+      "requires_word_timing": true,
+      "use_for": "开示与慢节奏口播",
+      "status": "isolated_sample",
+      "style": {
+        "font": "Tpl Noto Serif Bold",
+        "spoken_color": "#FFFFFF",
+        "upcoming_color": "#C8BFB5",
+        "preserve_source_case": true,
+        "max_lines": 2,
+        "center_y": 1440
+      }
+    }
+  ],
+  "local_assets": [],
+  "references": []
+}

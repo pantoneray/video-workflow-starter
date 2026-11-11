@@ -1,0 +1,14 @@
+# render outputs
+tests/out/
+out/
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.mp3
+# per-render subtitle/mask files written next to outputs
+*_fgmask.png
+*_shade.png
+__pycache__/
+*.pyc
+.DS_Store

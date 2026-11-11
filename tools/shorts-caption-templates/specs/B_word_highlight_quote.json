@@ -1,0 +1,199 @@
+{
+ "id": "B_word_highlight_quote",
+ "name_zh": "逐词高亮金句",
+ "name_en": "Word-by-word highlight",
+ "refs": [
+  {
+   "id": "Idhxi63qmR0",
+   "url": "https://youtube.com/shorts/Idhxi63qmR0",
+   "channel": "vibrateandcreate（@vibrateandcreate）",
+   "dur_s": 53.73,
+   "shots": 16,
+   "shot_median_s": 2.38,
+   "cuts_per_10s": 2.79,
+   "lufs": -16.3,
+   "voice_p90_db": -12.8,
+   "floor_p20_db": -21.9,
+   "gap_voice_minus_floor_db": 9.1,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 6.31
+  },
+  {
+   "id": "Gp1rmnGpdm4",
+   "url": "https://youtube.com/shorts/Gp1rmnGpdm4",
+   "channel": "vibrateandcreate（@vibrateandcreate）",
+   "dur_s": 45.33,
+   "shots": 25,
+   "shot_median_s": 0.33,
+   "cuts_per_10s": 5.3,
+   "lufs": -17.4,
+   "voice_p90_db": -14.2,
+   "floor_p20_db": -21.8,
+   "gap_voice_minus_floor_db": 7.6,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 6.35
+  },
+  {
+   "id": "xIF62ixaeaw",
+   "url": "https://youtube.com/shorts/xIF62ixaeaw",
+   "channel": "Wispr Flow（@wisprflow）",
+   "dur_s": 66.78,
+   "shots": 20,
+   "shot_median_s": 2.78,
+   "cuts_per_10s": 2.85,
+   "lufs": -22.7,
+   "voice_p90_db": -18.9,
+   "floor_p20_db": -36.0,
+   "gap_voice_minus_floor_db": 17.1,
+   "silences_lt_-40dB": 4,
+   "vtt_wps": null
+  },
+  {
+   "id": "WsB3oVYnE_A",
+   "url": "https://www.youtube.com/shorts/WsB3oVYnE_A",
+   "channel": "HeavenlyBody（@HeavenlyBodyClips）",
+   "dur_s": 59.37,
+   "shots": 4,
+   "shot_median_s": 4.23,
+   "cuts_per_10s": 0.51,
+   "lufs": -19.8,
+   "voice_p90_db": -16.2,
+   "floor_p20_db": -23.5,
+   "gap_voice_minus_floor_db": 7.3,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 5.8
+  }
+ ],
+ "use_when": "任何以一句核心金句为主的 15–45 秒短片都可以用：开示、问答片段、旁白配空镜或插画。近景人物效果最好。Shorts 主力模板。",
+ "avoid_when": "内容长、节奏慢、需要静观的段落（改用 D）。",
+ "layout": {
+  "mode": "fullbleed",
+  "caption": {
+   "y_center": 1440
+  },
+  "watermark": {
+   "y": 1620
+  },
+  "face_zone": [
+   420,
+   1150
+  ],
+  "note": "v1.1：参考视频字幕中心在 y≈950–1000（Idhxi），但讲者素材会遮脸，已下移到 1440（v1.1 规则）"
+ },
+ "timeline": [
+  {
+   "t": "0–1.5s",
+   "what": "第一句就是钩子（问题或反常识），字幕第 1 帧就出现"
+  },
+  {
+   "t": "1.5s–",
+   "what": "每 2.4–2.8s 一个镜头变化：换机位、推近或插入空镜"
+  },
+  {
+   "t": "结尾",
+   "what": "最后一句收在完整句子上，不加 CTA 口播"
+  }
+ ],
+ "rhythm": {
+  "shot_len_s": [
+   1.5,
+   3.0
+  ],
+  "measured": "镜头中位：Idhxi 2.38s、xIF6 2.78s；Gp1r 有大量 <0.5s 闪切（粒子特效）",
+  "punch_in": {
+   "scale": 1.12,
+   "every_s": 2.6,
+   "note": "没有第二机位时，用 100%↔112% 交替推近模拟换镜（推断：参考多为真换镜）"
+  },
+  "broll": "可插入 1.5–3s 寺院/自然空镜（自己拍或可商用素材），不用炫光科幻特效"
+ },
+ "captions": {
+  "font": "sans_black",
+  "size": 84,
+  "case": "sentence",
+  "color": "#FFFFFF",
+  "highlight": "#FFE14D",
+  "outline": 6,
+  "shadow": 0,
+  "max_words": 3,
+  "max_chars_latin": 18,
+  "max_chars_zh": 7,
+  "y_center": 1440,
+  "animation": "word_pop",
+  "inferred": "当前读到的词变黄并轻微放大（推断：相邻帧里黄色词随语音移动）"
+ },
+ "audio": {
+  "target_lufs": -14,
+  "true_peak_db": -1,
+  "music_source_rule": "只用免版税且授权清楚的音乐（YouTube 音频库、可商用 CC0），不用参考视频里的音乐",
+  "duck": "人声出现时音乐自动再压低 6–8 dB（sidechain）",
+  "music": "是",
+  "music_db_under_voice": -18,
+  "measured_note": "4 条全部有持续音乐床，无 -40 dB 静音；安静处电平比人声峰值低约 7–17 dB（推断，是音乐床电平的上限估计）。我们建议更克制：低 18 dB。"
+ },
+ "copy": {
+  "title_formula": "问题式或「X 不是 Y」式，一句",
+  "example_zh": "烦恼来时，先别急着赶走它（示例结构）",
+  "example_id": "Saat pikiran gelisah, jangan buru-buru mengusirnya（待译者核对）",
+  "example_mn": "Сэтгэл түгшихэд яаран хөөж бүү зайлуул（待译者核对）",
+  "caption_rule": "每屏 1–3 个词；高亮词选句中核心名词/动词，不高亮否定词以免改变意思"
+ },
+ "do": [
+  "高亮颜色全片统一",
+  "字幕不挡脸",
+  "节奏靠镜头变化而不是特效"
+ ],
+ "dont": [
+  "炫光、粒子、脑电波类特效（与佛法调性不符）",
+  "把「可能」「有时」等限定词删掉",
+  "一屏超过 3 个词"
+ ],
+ "version": "v1.4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30
+ },
+ "safe_area": {
+  "note": "Shorts 界面遮挡区（通用经验，非本次测量）：底部约 380px 放频道名/标题，右侧约 140px 放按钮，顶部约 200px 放搜索栏。口播字幕一律放在下方字幕带 y 1300–1560（中心线），左右各留 140px，避开右侧按钮和底部约 360px 的界面区。人脸区（9:16 全屏近景约 y 420–1150）禁止放任何字幕或大字。",
+  "caption_band_y": [
+   1300,
+   1560
+  ],
+  "face_zone_fullbleed": [
+   420,
+   1150
+  ],
+  "title_safe_y": [
+   200,
+   1560
+  ],
+  "right_margin_px": 140
+ },
+ "fonts": {
+  "latin": {
+   "sans_black": "Tpl Noto Sans Black",
+   "sans_xb": "Tpl Montserrat ExtraBold",
+   "sans_cond": "Tpl Noto Sans Condensed ExtraBold",
+   "sans_med": "Tpl Noto Sans Medium",
+   "serif_bold": "Tpl Noto Serif Bold",
+   "serif_med": "Tpl Noto Serif Medium",
+   "serif_italic": "Tpl Noto Serif Italic"
+  },
+  "zh": {
+   "sans_black": "Tpl Noto Sans SC ExtraBold",
+   "sans_xb": "Tpl Noto Sans SC ExtraBold",
+   "sans_cond": "Tpl Noto Sans SC ExtraBold",
+   "sans_med": "Tpl Noto Sans SC Medium",
+   "serif_bold": "Tpl Noto Serif SC Bold",
+   "serif_med": "Tpl Noto Serif SC Bold",
+   "serif_italic": "Tpl Noto Serif SC Bold"
+  }
+ },
+ "rules": [
+  "字幕一律靠下，不得遮挡人脸：口播字幕中心 y 1300–1560，大字钩子同样放下方",
+  "只学风格：不用参考视频的画面、音乐、付费字体",
+  "标题不夸大、不误导，不改原意；引文标出处（宗教、知识类内容尤其如此）",
+  "标注「推断」的参数来自看帧，不是工具读出的数据"
+ ]
+}

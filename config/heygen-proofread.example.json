@@ -1,0 +1,7 @@
+{
+  "video": {"type": "asset_id", "asset_id": "YOUR_VIDEO_ASSET_ID"},
+  "output_languages": ["YOUR_TARGET_LANGUAGE_CODE"],
+  "title": "My proofread translation",
+  "mode": "precision",
+  "enable_video_stretching": true
+}

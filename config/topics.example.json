@@ -1,0 +1,8 @@
+{
+  "themes": [
+    {"id": "life-compassion", "title": "日常生活中的慈悲与相处", "enabled": true, "audience": "普通观众", "depth": "生活应用", "source_scope": ["life_corpus"], "keywords": ["慈悲", "关怀", "相处"], "exclude_keywords": []},
+    {"id": "life-mind", "title": "情绪、压力与正念", "enabled": true, "audience": "普通观众", "depth": "生活应用", "source_scope": ["life_corpus"], "keywords": ["情绪", "压力", "正念"], "exclude_keywords": []},
+    {"id": "deep-view", "title": "见解与因缘", "enabled": true, "audience": "有基础的学习者", "depth": "深入法义", "source_scope": ["deep_corpus"], "keywords": ["因缘", "缘起", "见解"], "exclude_keywords": []},
+    {"id": "deep-practice", "title": "修学次第与戒定慧", "enabled": true, "audience": "有基础的学习者", "depth": "深入法义", "source_scope": ["deep_corpus"], "keywords": ["修学", "戒", "定", "慧"], "exclude_keywords": []}
+  ]
+}

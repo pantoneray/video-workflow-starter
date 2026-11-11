@@ -1,0 +1,16 @@
+; Style header for template E_episode_title_card (id). Captions stay in the lower band (center y 1300-1560), never over the face.
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Tpl Noto Serif Medium,74,&H00D0E0E8,&H00D0E0E8,&H00000000,&H60000000,0,0,0,0,100,100,0,0,1,0,4,5,140,140,0,1
+Style: Kicker,Tpl Noto Serif Bold,30,&H006BC4F2,&H006BC4F2,&H00000000,&H60000000,0,0,0,0,100,100,0,0,1,0,2,5,140,140,0,1
+Style: Header,Tpl Noto Serif Bold,54,&H006BC4F2,&H006BC4F2,&H00000000,&H60000000,0,0,0,0,100,100,0,0,1,0,3,5,140,140,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

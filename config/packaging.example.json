@@ -1,0 +1,13 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "font_path": "SET_ABSOLUTE_PATH_TO_FONT_SUPPORTING_TARGET_LANGUAGE",
+  "font_size": 52,
+  "safe_bottom": 220,
+  "intro_path": null,
+  "outro_path": null,
+  "transition_seconds": 0,
+  "music_path": null,
+  "music_volume": 0.12
+}

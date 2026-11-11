@@ -1,0 +1,6 @@
+{
+  "client_secret_path": "./credentials/youtube-desktop-client.json",
+  "gcp_project_id": "SET_EXPECTED_GCP_PROJECT_ID",
+  "expected_email": "SET_YOUR_GOOGLE_ACCOUNT_EMAIL",
+  "channel_id": "SET_YOUR_YOUTUBE_CHANNEL_ID"
+}

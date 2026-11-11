@@ -1,0 +1,16 @@
+; Style header for template F_editorial_hook (zh). Captions stay in the lower band (center y 1300-1560), never over the face.
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Tpl Noto Serif SC Bold,54,&H00FFFFFF,&H00FFFFFF,&H10202020,&H30202020,0,0,0,0,100,100,0,0,3,12,0,5,140,140,0,1
+Style: Big,Tpl Noto Sans SC ExtraBold,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H60000000,0,0,0,0,100,100,0,0,1,0,4,5,140,140,0,1
+Style: Small,Tpl Noto Serif SC Bold,50,&H00FFB458,&H00FFB458,&H00000000,&H60000000,0,0,0,0,100,100,0,0,1,0,3,5,140,140,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

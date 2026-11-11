@@ -1,0 +1,6 @@
+{
+  "translation_model": "SET_YOUR_GEMINI_MODEL",
+  "review_model": "SET_AN_INDEPENDENT_GEMINI_MODEL",
+  "backtranslation_model": "SET_YOUR_GEMINI_MODEL",
+  "glossary": []
+}

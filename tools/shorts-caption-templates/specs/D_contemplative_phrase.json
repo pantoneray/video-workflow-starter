@@ -1,0 +1,196 @@
+{
+ "id": "D_contemplative_phrase",
+ "name_zh": "静观短语字幕",
+ "name_en": "Contemplative phrase captions",
+ "refs": [
+  {
+   "id": "T5OAOgB_xA0",
+   "url": "https://www.youtube.com/shorts/T5OAOgB_xA0",
+   "channel": "Money Moon（@Moneymoon-en）",
+   "dur_s": 25.66,
+   "shots": 2,
+   "shot_median_s": 12.83,
+   "cuts_per_10s": 0.39,
+   "lufs": -14.4,
+   "voice_p90_db": -11.3,
+   "floor_p20_db": -18.5,
+   "gap_voice_minus_floor_db": 7.2,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": null
+  },
+  {
+   "id": "ty_QuSlG4s8",
+   "url": "https://youtube.com/shorts/ty_QuSlG4s8",
+   "channel": "Money Moon（@Moneymoon-en）",
+   "dur_s": 26.52,
+   "shots": 4,
+   "shot_median_s": 6.12,
+   "cuts_per_10s": 1.13,
+   "lufs": -14.9,
+   "voice_p90_db": -11.7,
+   "floor_p20_db": -20.4,
+   "gap_voice_minus_floor_db": 8.7,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": null
+  },
+  {
+   "id": "uw7otsaTAaA",
+   "url": "https://www.youtube.com/shorts/uw7otsaTAaA",
+   "channel": "Money Moon（@Moneymoon-en）",
+   "dur_s": 17.9,
+   "shots": 1,
+   "shot_median_s": 17.9,
+   "cuts_per_10s": 0.0,
+   "lufs": -16.9,
+   "voice_p90_db": -11.5,
+   "floor_p20_db": -25.5,
+   "gap_voice_minus_floor_db": 14.0,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 2.8
+  },
+  {
+   "id": "WsB3oVYnE_A",
+   "url": "https://www.youtube.com/shorts/WsB3oVYnE_A",
+   "channel": "HeavenlyBody（@HeavenlyBodyClips）",
+   "dur_s": 59.37,
+   "shots": 4,
+   "shot_median_s": 4.23,
+   "cuts_per_10s": 0.51,
+   "lufs": -19.8,
+   "voice_p90_db": -16.2,
+   "floor_p20_db": -23.5,
+   "gap_voice_minus_floor_db": 7.3,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 5.8
+  }
+ ],
+ "use_when": "任何节奏慢、需要留白的内容都可以用：开示、禅修引导、偈颂诵读、寺院或风景空镜配旁白、插画。15–45 秒。",
+ "avoid_when": "需要强钩子的话题引流视频（改用 B）。",
+ "layout": {
+  "mode": "fullbleed",
+  "caption": {
+   "y_center": 1440
+  },
+  "watermark": {
+   "y": 1620
+  },
+  "face_zone": [
+   420,
+   1150
+  ],
+  "note": "v1.1：参考视频字幕中心在 y≈950（T5OA、ty_Q），会遮脸，已下移到 1440（v1.1 规则）"
+ },
+ "timeline": [
+  {
+   "t": "0–2s",
+   "what": "近景直接开口，第一句 2–3 个词"
+  },
+  {
+   "t": "每 6–13s",
+   "what": "近景↔中景跳切一次（ty_Q 6.1s、T5OA 12.8s）"
+  },
+  {
+   "t": "结尾",
+   "what": "停在一句完整的话上，留 0.5s 安静"
+  }
+ ],
+ "rhythm": {
+  "shot_len_s": [
+   6,
+   13
+  ],
+  "measured": "镜头中位：ty_Q 6.12s、T5OA 12.83s、uw7o 单镜头 17.9s",
+  "punch_in": {
+   "scale": 1.15,
+   "every_s": 7.0,
+   "note": "无第二机位时用推近跳切模拟"
+  }
+ },
+ "captions": {
+  "font": "serif_bold",
+  "size": 82,
+  "case": "lower",
+  "color": "#FFFFFF",
+  "future_color": "#9A9A9A",
+  "outline": 0,
+  "shadow": 4,
+  "max_words": 3,
+  "max_chars_latin": 20,
+  "max_chars_zh": 8,
+  "y_center": 1440,
+  "animation": "karaoke_fade",
+  "inferred": "未读到的词先灰、读到变白（推断自 T5OA 2.5s「the question」灰→3.0s 白）"
+ },
+ "audio": {
+  "target_lufs": -14,
+  "true_peak_db": -1,
+  "music_source_rule": "只用免版税且授权清楚的音乐（YouTube 音频库、可商用 CC0），不用参考视频里的音乐",
+  "duck": "人声出现时音乐自动再压低 6–8 dB（sidechain）",
+  "music": "是（极轻）",
+  "music_db_under_voice": -22,
+  "measured_note": "Money Moon 三条音乐床持续，比人声峰值低约 7–14 dB（推断）；我们建议 -22 dB 的环境音/颂钵氛围。"
+ },
+ "copy": {
+  "title_formula": "名词短语或一个问题，不加感叹号",
+  "example_zh": "我是谁？（示例结构）",
+  "example_id": "Siapakah aku?（待译者核对）",
+  "example_mn": "Би хэн бэ?（待译者核对）",
+  "caption_rule": "小写、短句；中文每屏不超过 8 个字"
+ },
+ "do": [
+  "留白和停顿",
+  "色调偏暖暗"
+ ],
+ "dont": [
+  "快速闪切",
+  "鼓点音乐"
+ ],
+ "version": "v1.4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30
+ },
+ "safe_area": {
+  "note": "Shorts 界面遮挡区（通用经验，非本次测量）：底部约 380px 放频道名/标题，右侧约 140px 放按钮，顶部约 200px 放搜索栏。口播字幕一律放在下方字幕带 y 1300–1560（中心线），左右各留 140px，避开右侧按钮和底部约 360px 的界面区。人脸区（9:16 全屏近景约 y 420–1150）禁止放任何字幕或大字。",
+  "caption_band_y": [
+   1300,
+   1560
+  ],
+  "face_zone_fullbleed": [
+   420,
+   1150
+  ],
+  "title_safe_y": [
+   200,
+   1560
+  ],
+  "right_margin_px": 140
+ },
+ "fonts": {
+  "latin": {
+   "sans_black": "Tpl Noto Sans Black",
+   "sans_xb": "Tpl Montserrat ExtraBold",
+   "sans_cond": "Tpl Noto Sans Condensed ExtraBold",
+   "sans_med": "Tpl Noto Sans Medium",
+   "serif_bold": "Tpl Noto Serif Bold",
+   "serif_med": "Tpl Noto Serif Medium",
+   "serif_italic": "Tpl Noto Serif Italic"
+  },
+  "zh": {
+   "sans_black": "Tpl Noto Sans SC ExtraBold",
+   "sans_xb": "Tpl Noto Sans SC ExtraBold",
+   "sans_cond": "Tpl Noto Sans SC ExtraBold",
+   "sans_med": "Tpl Noto Sans SC Medium",
+   "serif_bold": "Tpl Noto Serif SC Bold",
+   "serif_med": "Tpl Noto Serif SC Bold",
+   "serif_italic": "Tpl Noto Serif SC Bold"
+  }
+ },
+ "rules": [
+  "字幕一律靠下，不得遮挡人脸：口播字幕中心 y 1300–1560，大字钩子同样放下方",
+  "只学风格：不用参考视频的画面、音乐、付费字体",
+  "标题不夸大、不误导，不改原意；引文标出处（宗教、知识类内容尤其如此）",
+  "标注「推断」的参数来自看帧，不是工具读出的数据"
+ ]
+}

@@ -1,0 +1,253 @@
+{
+ "id": "A_threeband_card",
+ "name_zh": "三段式访谈卡",
+ "name_en": "Three-band interview card",
+ "refs": [
+  {
+   "id": "Do2w0JowqaE",
+   "url": "https://youtube.com/shorts/Do2w0JowqaE",
+   "channel": "Daily Timeless Insights（@DailyTimelessInsights）",
+   "dur_s": 86.77,
+   "shots": 1,
+   "shot_median_s": 86.77,
+   "cuts_per_10s": 0.0,
+   "lufs": -12.9,
+   "voice_p90_db": -8.3,
+   "floor_p20_db": -39.9,
+   "gap_voice_minus_floor_db": 31.7,
+   "silences_lt_-40dB": 13,
+   "vtt_wps": 4.97
+  },
+  {
+   "id": "PSQBGQEXnjI",
+   "url": "https://youtube.com/shorts/PSQBGQEXnjI",
+   "channel": "Character Fuel™（@Characterfuel24）",
+   "dur_s": 18.0,
+   "shots": 1,
+   "shot_median_s": 18.0,
+   "cuts_per_10s": 0.0,
+   "lufs": -19.3,
+   "voice_p90_db": -15.5,
+   "floor_p20_db": -27.4,
+   "gap_voice_minus_floor_db": 11.9,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 1.41
+  },
+  {
+   "id": "0iV0-M4R0Xg",
+   "url": "https://youtube.com/shorts/0iV0-M4R0Xg",
+   "channel": "Character Fuel™（@Characterfuel24）",
+   "dur_s": 18.37,
+   "shots": 1,
+   "shot_median_s": 18.37,
+   "cuts_per_10s": 0.0,
+   "lufs": -13.8,
+   "voice_p90_db": -9.7,
+   "floor_p20_db": -22.7,
+   "gap_voice_minus_floor_db": 13.0,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 3.93
+  },
+  {
+   "id": "Tec67BGxpFc",
+   "url": "https://youtube.com/shorts/Tec67BGxpFc",
+   "channel": "Zenfinity App（@ZenfinityApp）",
+   "dur_s": 92.88,
+   "shots": 2,
+   "shot_median_s": 46.44,
+   "cuts_per_10s": 0.11,
+   "lufs": -19.0,
+   "voice_p90_db": -14.3,
+   "floor_p20_db": -32.9,
+   "gap_voice_minus_floor_db": 18.6,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 5.54
+  },
+  {
+   "id": "qwovFEWpvvI",
+   "url": "https://youtube.com/shorts/qwovFEWpvvI",
+   "channel": "SalesBendagra（@SalesBendagra）",
+   "dur_s": 60.09,
+   "shots": 1,
+   "shot_median_s": 60.09,
+   "cuts_per_10s": 0.0,
+   "lufs": -14.1,
+   "voice_p90_db": -10.8,
+   "floor_p20_db": -22.4,
+   "gap_voice_minus_floor_db": 11.6,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": null
+  },
+  {
+   "id": "PUtQftpDknk",
+   "url": "https://youtube.com/shorts/PUtQftpDknk",
+   "channel": "EXTRACTS（@extractsbooks）",
+   "dur_s": 58.89,
+   "shots": 2,
+   "shot_median_s": 29.44,
+   "cuts_per_10s": 0.17,
+   "lufs": -15.4,
+   "voice_p90_db": -12.5,
+   "floor_p20_db": -16.3,
+   "gap_voice_minus_floor_db": 3.8,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": null
+  }
+ ],
+ "use_when": "任何横屏（16:9）素材都可以用：讲法开示、访谈、法会/活动现场、纪录片段，也包括横屏的插画或动画。适合 20–90 秒、完整说清一个点的内容；不想裁掉画面时首选。",
+ "avoid_when": "主体在画面里很小、又需要看清表情时，可以先推近，或改用 B / D。",
+ "layout": {
+  "mode": "threeband",
+  "bg": "blur",
+  "bg_blur": 28,
+  "bg_darken": -0.28,
+  "nameplate": {
+   "y": 330,
+   "h": 64,
+   "style": "白底黑字小牌，大写，居中（Do2w）"
+  },
+  "title": {
+   "y_top": 420,
+   "max_lines": 2,
+   "line_h": 96,
+   "max_chars_latin": 22,
+   "max_chars_zh": 11,
+   "align": "center"
+  },
+  "video": {
+   "y": 660,
+   "h": 608,
+   "aspect": "16:9",
+   "note": "实测参考：视频带 y≈540–1360（Do2w）、555–1359（qwov）、561–1098（0iV0）"
+  },
+  "caption": {
+   "y_center": 1390
+  },
+  "watermark": {
+   "y": 1600
+  },
+  "face_zone": [
+   680,
+   1150
+  ]
+ },
+ "timeline": [
+  {
+   "t": "0–0.5s",
+   "what": "标题、名牌、视频同时出现，不做开场动画（参考里 6 条都是第 1 帧就有标题）"
+  },
+  {
+   "t": "0.5s–结尾前 1.5s",
+   "what": "单镜头不切（参考 4/6 条全片 1 个镜头），只靠字幕推进"
+  },
+  {
+   "t": "最后 1–1.5s",
+   "what": "可选结尾卡：讲者正面静照＋频道名（Character Fuel 两条都在 17.5s 切到人物静照）"
+  }
+ ],
+ "rhythm": {
+  "cuts": "0（单镜头）",
+  "shot_len_s": "整段",
+  "zoom": "无；可选整段 1.00→1.04 极慢推近（推断：参考中未见明显推近）",
+  "measured": "Do2w/PSQB/0iV0/qwov 均为 1 个镜头；Tec67、PUtQ 各 2 个"
+ },
+ "captions": {
+  "font": "sans_med",
+  "size": 72,
+  "case": "sentence",
+  "color": "#FFFFFF",
+  "highlight": "#FFFFFF",
+  "outline": 0,
+  "shadow": 2,
+  "box": false,
+  "max_words": 5,
+  "max_chars_latin": 26,
+  "max_chars_zh": 12,
+  "y_center": 1390,
+  "animation": "phrase",
+  "inferred": "字幕逐句出现（推断自相邻帧）；Do2w 是单词逐个出现在黑底条里，可设 max_words=1"
+ },
+ "title": {
+  "font": "sans_xb",
+  "size": 72,
+  "case": "upper",
+  "color": "#FFFFFF",
+  "highlight": "#7CFF5A",
+  "highlight_alt": "#3FD6E8",
+  "note": "1–2 个关键词换色（Do2w 绿、PSQB/0iV0 青）"
+ },
+ "audio": {
+  "target_lufs": -14,
+  "true_peak_db": -1,
+  "music_source_rule": "只用免版税且授权清楚的音乐（YouTube 音频库、可商用 CC0），不用参考视频里的音乐",
+  "duck": "人声出现时音乐自动再压低 6–8 dB（sidechain）",
+  "music": "可选",
+  "music_db_under_voice": -18,
+  "measured_note": "Do2w 无音乐床（停顿处 -40 dB 以下，13 次静音）；PSQB/0iV0 有持续低音乐床，安静处电平约比人声峰值低 12–13 dB（推断）。"
+ },
+ "copy": {
+  "title_formula": "一句话说出这段的结论或问题（不超过 2 行），关键词 1–2 个换色；名牌写「SPEAKER NAME」",
+  "example_zh": "放下不是放弃｜讲者开示（示例结构，标题须与原话意思一致）",
+  "example_id": "MELEPASKAN BUKAN BERARTI MENYERAH（待译者核对）",
+  "example_mn": "ТАВЬЖ ЯВУУЛАХ НЬ БУУЖ ӨГӨХ БИШ（待译者核对）",
+  "caption_rule": "字幕逐字忠实于讲者原话的译文，不删关键限定词"
+ },
+ "do": [
+  "标题写这段真正讲的内容",
+  "名牌用法名全称",
+  "横屏素材保持完整，不硬裁"
+ ],
+ "dont": [
+  "标题夸大（「改变命运」「必看」）",
+  "用参考视频的画面或背景音乐",
+  "白底名牌里写未经核实的头衔"
+ ],
+ "version": "v1.4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30
+ },
+ "safe_area": {
+  "note": "Shorts 界面遮挡区（通用经验，非本次测量）：底部约 380px 放频道名/标题，右侧约 140px 放按钮，顶部约 200px 放搜索栏。口播字幕一律放在下方字幕带 y 1300–1560（中心线），左右各留 140px，避开右侧按钮和底部约 360px 的界面区。人脸区（9:16 全屏近景约 y 420–1150）禁止放任何字幕或大字。",
+  "caption_band_y": [
+   1300,
+   1560
+  ],
+  "face_zone_fullbleed": [
+   420,
+   1150
+  ],
+  "title_safe_y": [
+   200,
+   1560
+  ],
+  "right_margin_px": 140
+ },
+ "fonts": {
+  "latin": {
+   "sans_black": "Tpl Noto Sans Black",
+   "sans_xb": "Tpl Montserrat ExtraBold",
+   "sans_cond": "Tpl Noto Sans Condensed ExtraBold",
+   "sans_med": "Tpl Noto Sans Medium",
+   "serif_bold": "Tpl Noto Serif Bold",
+   "serif_med": "Tpl Noto Serif Medium",
+   "serif_italic": "Tpl Noto Serif Italic"
+  },
+  "zh": {
+   "sans_black": "Tpl Noto Sans SC ExtraBold",
+   "sans_xb": "Tpl Noto Sans SC ExtraBold",
+   "sans_cond": "Tpl Noto Sans SC ExtraBold",
+   "sans_med": "Tpl Noto Sans SC Medium",
+   "serif_bold": "Tpl Noto Serif SC Bold",
+   "serif_med": "Tpl Noto Serif SC Bold",
+   "serif_italic": "Tpl Noto Serif SC Bold"
+  }
+ },
+ "rules": [
+  "字幕一律靠下，不得遮挡人脸：口播字幕中心 y 1300–1560，大字钩子同样放下方",
+  "只学风格：不用参考视频的画面、音乐、付费字体",
+  "标题不夸大、不误导，不改原意；引文标出处（宗教、知识类内容尤其如此）",
+  "标注「推断」的参数来自看帧，不是工具读出的数据"
+ ]
+}

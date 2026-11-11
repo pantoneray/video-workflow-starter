@@ -1,0 +1,153 @@
+{
+ "id": "F_editorial_hook",
+ "name_zh": "杂志大字钩子",
+ "name_en": "Editorial big-type hook",
+ "refs": [
+  {
+   "id": "Dkw7jQZkNqw",
+   "url": "https://www.youtube.com/shorts/Dkw7jQZkNqw",
+   "channel": "Yann Le Mad（@YannLeMadarcads）",
+   "dur_s": 74.12,
+   "shots": 15,
+   "shot_median_s": 2.7,
+   "cuts_per_10s": 1.89,
+   "lufs": -12.2,
+   "voice_p90_db": -8.3,
+   "floor_p20_db": -16.7,
+   "gap_voice_minus_floor_db": 8.4,
+   "silences_lt_-40dB": 0,
+   "vtt_wps": 7.83
+  }
+ ],
+ "use_when": "钩子模块，可以接在任何模版（A–E）的开头 3–5 秒，或用在关键术语、数字、问题出现时：在下方字幕带打出大字（例如「无常」「菩提心」）。真人、插画、空镜素材都可以用。",
+ "avoid_when": "全片使用（信息太密，与开示调性不符）。",
+ "layout": {
+  "mode": "fullbleed",
+  "overlay": {
+   "y_top": 1290,
+   "h": 290,
+   "hide_captions_while_visible": true,
+   "style": "衬线斜体小字＋无衬线粗体大字混排，强调色蓝"
+  },
+  "caption": {
+   "y_center": 1545,
+   "box": true
+  },
+  "face_zone": [
+   420,
+   1150
+  ],
+  "note": "v1.1：参考视频 Dkw7 的大字在顶部 y≈150–500，会压到头部，已整体移到下方：大字 y≈1290–1580（与口播字幕共用下方字幕带，大字显示期间不出字幕），字幕框 y≈1545（v1.1 规则）"
+ },
+ "timeline": [
+  {
+   "t": "0–1.0s",
+   "what": "大字逐行叠出（I DIDN’T → edit → A SINGLE → SECOND）"
+  },
+  {
+   "t": "2–4s 一次",
+   "what": "关键词大字出现 1.5–2.5s 后消失"
+  }
+ ],
+ "rhythm": {
+  "shot_len_s": [
+   2,
+   3.5
+  ],
+  "measured": "Dkw7 镜头中位 2.70s，语速约 7.8 词/秒（最快一条）"
+ },
+ "captions": {
+  "font": "serif_italic",
+  "size": 54,
+  "case": "sentence",
+  "color": "#FFFFFF",
+  "highlight": "#FFFFFF",
+  "outline": 0,
+  "shadow": 0,
+  "box": true,
+  "box_color": "#202020",
+  "max_words": 2,
+  "max_chars_latin": 16,
+  "max_chars_zh": 6,
+  "y_center": 1545,
+  "animation": "phrase"
+ },
+ "overlay": {
+  "font_big": "sans_black",
+  "size_big": 92,
+  "font_small": "serif_italic",
+  "size_small": 50,
+  "accent": "#58B4FF"
+ },
+ "audio": {
+  "target_lufs": -14,
+  "true_peak_db": -1,
+  "music_source_rule": "只用免版税且授权清楚的音乐（YouTube 音频库、可商用 CC0），不用参考视频里的音乐",
+  "duck": "人声出现时音乐自动再压低 6–8 dB（sidechain）",
+  "music": "是",
+  "music_db_under_voice": -18,
+  "measured_note": "Dkw7 全程有音乐床，比人声峰值低约 8 dB（推断）。"
+ },
+ "copy": {
+  "title_formula": "一个核心术语＋一句解释",
+  "example_zh": "【无常】不是悲观，是看清（示例结构）",
+  "example_id": "ANICCA — bukan pesimis, tapi melihat dengan jernih（待译者核对）",
+  "example_mn": "МӨНХ БУС — гутранги бус, тод харах（待译者核对）",
+  "caption_rule": "大字只用原话里出现过的词"
+ },
+ "do": [
+  "只做钩子模块，配合其他模板"
+ ],
+ "dont": [
+  "全片满屏大字",
+  "用电脑界面、产品演示类 B-roll"
+ ],
+ "version": "v1.4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30
+ },
+ "safe_area": {
+  "note": "Shorts 界面遮挡区（通用经验，非本次测量）：底部约 380px 放频道名/标题，右侧约 140px 放按钮，顶部约 200px 放搜索栏。口播字幕一律放在下方字幕带 y 1300–1560（中心线），左右各留 140px，避开右侧按钮和底部约 360px 的界面区。人脸区（9:16 全屏近景约 y 420–1150）禁止放任何字幕或大字。",
+  "caption_band_y": [
+   1300,
+   1560
+  ],
+  "face_zone_fullbleed": [
+   420,
+   1150
+  ],
+  "title_safe_y": [
+   200,
+   1560
+  ],
+  "right_margin_px": 140
+ },
+ "fonts": {
+  "latin": {
+   "sans_black": "Tpl Noto Sans Black",
+   "sans_xb": "Tpl Montserrat ExtraBold",
+   "sans_cond": "Tpl Noto Sans Condensed ExtraBold",
+   "sans_med": "Tpl Noto Sans Medium",
+   "serif_bold": "Tpl Noto Serif Bold",
+   "serif_med": "Tpl Noto Serif Medium",
+   "serif_italic": "Tpl Noto Serif Italic"
+  },
+  "zh": {
+   "sans_black": "Tpl Noto Sans SC ExtraBold",
+   "sans_xb": "Tpl Noto Sans SC ExtraBold",
+   "sans_cond": "Tpl Noto Sans SC ExtraBold",
+   "sans_med": "Tpl Noto Sans SC Medium",
+   "serif_bold": "Tpl Noto Serif SC Bold",
+   "serif_med": "Tpl Noto Serif SC Bold",
+   "serif_italic": "Tpl Noto Serif SC Bold"
+  }
+ },
+ "rules": [
+  "字幕一律靠下，不得遮挡人脸：口播字幕中心 y 1300–1560，大字钩子同样放下方",
+  "只学风格：不用参考视频的画面、音乐、付费字体",
+  "标题不夸大、不误导，不改原意；引文标出处（宗教、知识类内容尤其如此）",
+  "标注「推断」的参数来自看帧，不是工具读出的数据"
+ ]
+}
