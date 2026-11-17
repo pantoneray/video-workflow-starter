@@ -2,7 +2,7 @@
 name: video-workflow-starter
 description: 根据用户提示词从指定素材自主裁切 30–45 秒视频、提取有出处的文案并翻译复核，调用脚本上传 HeyGen 网页校对和生成下载，以及上传 YouTube 私密视频；支持人工改稿和分步继续。
 metadata:
-  version: "2.3.22-rc.10"
+  version: "2.3.22-rc.11"
 ---
 
 # 视频工作流
@@ -50,7 +50,7 @@ metadata:
 
 1. 按用户主题在指定 MD/TXT/可检索 PDF 资料内运行 `source`；必要时由 Agent 把提示词整理成本次主题配置。脚本保存逐字原文、文件哈希、章节/行页及上下文。人工提供的原文也保留出处，不能为模型写出的文字伪造原文来源。
 2. 读取[制作规则](references/production-rules.md)，Agent 核对完整上下文和主题适用性，再给用户选文。跨段重组保留逐句出处与重组顺序并交用户确认，画面和文字来源分开；新写连接语不能伪装成讲者原话。口播初译、独立译及前后两份 SRT 均不添加括号解释。关键词命中只是检索候选；专业内容保留相应人工复核。扫描 PDF 需先 OCR。
-3. 默认由 Codex 保存初译 TXT；Google Translate 为盲回译首选，Gemini 做独立校对。适配代码已随包提供并通过离线测试，维护方已有首轮真实接口测试记录；每位使用者仍需配置本人账户并验证语料效果，不影响其他已验证功能交付。缺配置时停止，不回退 Gemini。 配置与迁移见[提供方状态](references/translation-provider-status.md)。`review create/revise` 已接线新提供方，只有以后配置并授权真实试验时才启用；当前先交付其余功能，不要求用户先开通云项目。盲回译只接收目标稿，术语供独立翻译和校对按需读取。
+3. 默认由 Codex 保存初译 TXT；Google Translate 为盲回译首选，Gemini 做独立校对。适配代码已随包提供并通过离线测试，维护方已有首轮真实接口测试记录；每位使用者仍需配置本人账户并验证语料效果，不影响其他已验证功能交付。缺少 Google 配置时，由 Codex 引导补配并保留已有任务和结果；用户也可先继续其他独立步骤。只有用户明确同意本次临时使用 Gemini 回译，才执行并标明实际提供方，不自动改默认配置。 配置与迁移见[提供方状态](references/translation-provider-status.md)。`review create/revise` 已接线新提供方，只有以后配置并授权真实试验时才启用；当前先交付其余功能，不要求用户先开通云项目。盲回译只接收目标稿，术语供独立翻译和校对按需读取。
 4. 用 `review-packet` 提供原文、译文、回译与差异。用户主动修改译稿时，保留上一版意见回应；新译审链仍受上条账户验收限制，未就绪时不调用 `review revise` 代替；用 `review decide` 记录用户明确决定。下游只使用当前获批版本。独立复核降低错误，不能承诺模型翻译绝对准确。
 
 ## 3. 自动上传 HeyGen、网页校对与生成下载
@@ -133,3 +133,5 @@ Mac 可用 `frame-check` 给构图建议、`silent-mouth inspect/trim/verify` �
 
 
 项目配置完成后执行 `python3 workflow.py project init --config <项目/video-config.json> --project-root <项目目录>`；已有本包项目记忆时用 `project sync`。脚本将[通用制作规则](references/project-rules.md)写入受管区域，保留区域外的个人备注及既有 AGENTS.md 内容；安装依赖本身不猜测项目路径，也不修改全局规则。
+
+- 2.3.22-rc.11：旧回译配置返回选择引导，保留任务；经本次用户明确同意可临时 Gemini 盲回译，独立标注提供方与同意来源。不得把配置待选状态或命令退出成功当成译审完成。

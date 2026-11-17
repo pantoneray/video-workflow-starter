@@ -1,4 +1,4 @@
-# 安装与逐步使用：v2.3.22-rc.10
+# 安装与逐步使用：v2.3.22-rc.11
 
 可以只用其中一个步骤，也可以按顺序完成制作。以下终端示例使用 Mac；Windows 使用包内 install.ps1，HeyGen 网页校对路线需 WSL，配置见 INTEGRATIONS.md。
 
@@ -35,7 +35,7 @@ python3 workflow.py guide --config <项目/video-config.json>
 
 > 列出我的主题库供我选择，从指定资料中找有出处且适合独立理解的候选。新主题先问我是否保存。原文通过后翻译为我选的语言，Google Translate做盲回译、Gemini做独立校对。把完整审稿材料放在本次输出的“审核”目录，给我可打开链接。
 
-脚本参考：`python3 workflow.py source --help`、`python3 workflow.py review --help`、`python3 workflow.py review-html --help`。先配置 [Google回译与Gemini](references/translation-provider-status.md)，分别使用本人密钥；真实调用需要授权。不能把关键词命中当作语义完全匹配，跨段重组先审，回译不自动覆盖定稿。
+脚本参考：`python3 workflow.py source --help`、`python3 workflow.py review --help`、`python3 workflow.py review-html --help`。Google与Gemini分别使用本人密钥，见[回译配置](references/translation-provider-status.md)。旧配置会引导补配；暂不配置可先继续其他步骤，也可明确同意本次临时Gemini回译，实际提供方会标注在审稿材料中；真实调用需要授权。不能把关键词命中当作语义完全匹配，跨段重组先审，回译不自动覆盖定稿。
 
 ## 4. 字幕预检与 HeyGen
 

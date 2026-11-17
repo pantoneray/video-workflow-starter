@@ -16,11 +16,11 @@ ENDPOINT = 'https://translation.googleapis.com/language/translate/v2'
 
 def preflight(config):
     if config.get('backtranslation_provider', 'google_translate') != 'google_translate':
-        raise ValueError('盲回译须使用 google_translate；Gemini 仅做独立校对')
+        raise ValueError('Google 回译适配需要 google_translate 配置；临时 Gemini 由独立的用户选择入口执行')
     if config.get('backtranslation_model', 'nmt') != 'nmt':
-        raise ValueError('请将 backtranslation_model 改为 nmt；旧 Gemini 回译配置不再执行')
+        raise ValueError('请将 backtranslation_model 改为 nmt；当前为旧回译配置；可引导配置 Google 或询问本次临时使用 Gemini')
     if not os.environ.get('GOOGLE_TRANSLATE_API_KEY'):
-        raise ValueError('未配置 GOOGLE_TRANSLATE_API_KEY；盲回译未完成，不回退 Gemini')
+        raise ValueError('未配置 GOOGLE_TRANSLATE_API_KEY；可引导补配或询问本次临时使用 Gemini；不自动替换')
 
 
 def translate_json(payload, model, *, opener=None, sleep=time.sleep):

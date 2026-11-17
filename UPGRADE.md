@@ -1,10 +1,10 @@
-# 从 2.3.21 升级到 v2.3.22-rc.10
+# 从 2.3.21 升级到 v2.3.22-rc.11
 
 不升级不影响现有使用。升级前备份旧包和个人配置，按需补充以下配置。
 
 ## 升级前要补什么
 
-1. **译审**：旧版 Gemini-only 配置不能继续新建或返修译稿。按 [回译配置](references/translation-provider-status.md) 增加 Google Cloud Translation API 凭据，本机环境变量 `GOOGLE_TRANSLATE_API_KEY`；包外模型JSON设 `backtranslation_provider: "google_translate"`、`backtranslation_model: "nmt"`。原 Gemini 初译/独立校对配置保留，`GEMINI_API_KEY` 单独配置。缺配置会停止，不回退；只用切片或包装无需先补回译。
+1. **译审**：旧版 Gemini-only 配置可保留；Codex 会引导补配 Google，或询问是否本次临时沿用 Gemini 回译。按 [回译配置](references/translation-provider-status.md) 增加 Google Cloud Translation API 凭据，本机环境变量 `GOOGLE_TRANSLATE_API_KEY`；包外模型JSON设 `backtranslation_provider: "google_translate"`、`backtranslation_model: "nmt"`。原 Gemini 初译/独立校对配置保留，`GEMINI_API_KEY` 单独配置。补配前可继续切片或包装；临时 Gemini 须经本次明确同意并如实标注。
 2. **字幕样式**：新版默认自动评估模板，字幕默认上移80像素。要保持旧效果明确指定旧模板并用 `--shift-up 0`，实际画面仍需检查。不要强制覆盖本人明确的模板配置。
 3. **历史任务**：保留旧稿、旧批准和旧收据，不自动迁移批准。新审核轮次绑定当前稿件，改稿须重审。
 4. **Notion**：不是必装项；本地HTML审核无需Notion。包内 Notion 工具需另行接入，不提供开箱即用的完整审核流程。
@@ -12,7 +12,7 @@
 ## 更新步骤
 
 ```text
-请从 pantoneray/video-workflow-starter 的 v2.3.22-rc.10 Release 更新我的 Skill。
+请从 pantoneray/video-workflow-starter 的 v2.3.22-rc.11 Release 更新我的 Skill。
 先阅读 UPGRADE.md，备份旧技能目录，并检查个人配置、账号文件、产物是否混放其中。
 保留它们和全部原素材，把个人文件留在包外项目目录。
 核对新版 ZIP 的 SHA256，使用完整包替换技能代码，在最终目录重建需要的依赖。

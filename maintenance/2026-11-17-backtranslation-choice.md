@@ -1,0 +1,3 @@
+# 回译选择修正
+
+用户明确要求旧配置引导补配、保留任务，临时Gemini须本次同意。CLI返回needs_backtranslation_choice，不将正常退出当成译审完成；记录实际提供方与同意来源。119项Python、Node交互、Skill结构通过；未调用真实模型。历史严格Google适配本身保留，独立的显式临时入口调用Gemini。

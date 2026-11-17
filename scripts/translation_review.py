@@ -153,6 +153,31 @@ def prompt_terms(glossary):
     return json.dumps(result, ensure_ascii=False)
 
 
+def temporary_gemini_backtranslation(target, language, model, consent, stage_call):
+    """One invocation only; caller records the user's explicit choice, not approval."""
+    if not consent or not consent.strip():
+        raise ValueError("临时 Gemini 回译需要本次用户明确同意的原话或引用")
+    prompt = ("仅将以下目标语正文盲回译为中文，不添加解释。"
+              '只返回 JSON {"items":[{"id":"1","translation":"..."}]}。正文：\n' + target)
+    result = stage_call("backtranslation_gemini_temporary", prompt, model)
+    text = items_by_id(result, ["1"], "translation")["1"]
+    return {"text": text, "provider": "gemini", "model": model,
+            "temporary": True, "user_consent": consent.strip(),
+            "target_language": language, "target_sha256": sha(target)}
+
+
+def backtranslation_setup_needed(config):
+    try:
+        backtranslation_preflight(config)
+    except ValueError as exc:
+        return {"state": "needs_backtranslation_choice", "reason": str(exc),
+                "message": "请引导补齐 Google 回译配置；也可询问是否本次临时使用 Gemini 回译。未经同意不替换提供方。",
+                "options": ["configure_google_translate", "continue_other_steps", "ask_temporary_gemini"],
+                "existing_results_preserved": True, "other_steps_available": True,
+                "model_calls": 0, "review_completed": False}
+    return None
+
+
 def create_item(source, target_language, model_config, provider=gemini_json, stage_call=None, draft=None, draft_author=None, backtranslation_call=None):
     if backtranslation_call is None:
         backtranslation_preflight(model_config)
@@ -191,8 +216,12 @@ def make_version(source, target_language, target, model_config, provider=gemini_
     # This service receives target only. Gemini independently translates/reviews.
     back_evidence = (backtranslation_call or google_backtranslate)(target, target_language)
     back = back_evidence.get("text")
-    if not isinstance(back, str) or not back.strip() or back_evidence.get("provider") != "google_translate":
-        raise ValueError("Google Translate 盲回译证据缺失或提供方不符")
+    actual_provider = back_evidence.get("provider")
+    temporary_gemini = (actual_provider == "gemini" and back_evidence.get("temporary") is True
+                        and isinstance(back_evidence.get("user_consent"), str)
+                        and bool(back_evidence["user_consent"].strip()))
+    if not isinstance(back, str) or not back.strip() or not (actual_provider == "google_translate" or temporary_gemini):
+        raise ValueError("盲回译证据缺失，或 Gemini 临时回译缺本次用户同意记录")
     review_prompt = "你是独立译审。先前你仅根据中文原文给出的独立译文如下；现在比较原文、当前译稿与独立译文，指出漏译、增译、误义和术语问题。不要自称人工批准。只返回 JSON {\"items\":[{\"id\":\"1\",\"review\":\"...\"}]}。术语参考：" + prompt_terms(glossary) + "\n中文原文：\n" + original + "\n当前译稿：\n" + target + "\n独立译文：\n" + independent
     review_prompt += "\n口播检查：" + SPOKEN_RULE + "发现括号解释时明确标记为需返修，不能直接删字冒充原稿已通过。"
     review = items_by_id(call("independent_review", review_prompt, review_model), ["1"], "review")["1"]
@@ -202,7 +231,8 @@ def make_version(source, target_language, target, model_config, provider=gemini_
             "blind_backtranslation": back, "independent_translation": independent,
             "independent_review": review,
             "models": {"translation": translation_model or "human_revision", "review": review_model,
-                       "backtranslation": "google-translate-nmt"}, "glossary": glossary,
+                       "backtranslation": ("google-translate-nmt" if actual_provider == "google_translate"
+                                           else "gemini:" + back_evidence["model"])}, "glossary": glossary,
             "backtranslation_evidence": back_evidence,
             "previous_version": None if previous is None else previous["version"],
             "feedback_response": feedback_response,
@@ -260,6 +290,10 @@ def main():
     revise.add_argument("--out", required=True)
     revise.add_argument("--confirm-external", action="store_true")
     revise.add_argument("--retry-unknown", action="store_true", help="人工核查后允许重新发出结果未知的模型请求")
+    for command in (create, revise):
+        command.add_argument("--temporary-gemini-backtranslation", action="store_true",
+                             help="仅本次使用 Gemini 回译，须先取得用户明确同意")
+        command.add_argument("--backtranslation-consent", help="本次用户同意原话或可核查引用")
     decide = sub.add_parser("decide")
     decide.add_argument("--version", required=True)
     decide.add_argument("--reviewer", required=True)
@@ -273,12 +307,29 @@ def main():
     if args.command in ("create", "revise") and not args.confirm_external:
         p.error("模型调用会发送资料到服务商；需明确 --confirm-external")
     if args.command in ("create", "revise"):
-        backtranslation_preflight(load(args.models))
+        raw_models = load(args.models)
+        if args.temporary_gemini_backtranslation:
+            if not args.backtranslation_consent or not args.backtranslation_consent.strip():
+                p.error("须先询问用户并用 --backtranslation-consent 记录本次同意，不能代填")
+        elif args.backtranslation_consent:
+            p.error("同意记录须与 --temporary-gemini-backtranslation 一起使用")
+        else:
+            pending = backtranslation_setup_needed(raw_models)
+            if pending:
+                print(json.dumps(pending, ensure_ascii=False))
+                return
         stage_dir = Path(args.out).with_suffix(Path(args.out).suffix + ".stages")
         stage_call = lambda stage, prompt, model: model_stage(
             stage, prompt, model, stage_dir, retry_unknown=args.retry_unknown)
-        backtranslation_call = lambda target, language: google_backtranslate(
-            target, language, workdir=stage_dir, retry_unknown=args.retry_unknown)
+        if args.temporary_gemini_backtranslation:
+            model = raw_models.get("backtranslation_model")
+            if not model or model == "nmt":
+                model = raw_models["review_model"]
+            backtranslation_call = lambda target, language: temporary_gemini_backtranslation(
+                target, language, model, args.backtranslation_consent, stage_call)
+        else:
+            backtranslation_call = lambda target, language: google_backtranslate(
+                target, language, workdir=stage_dir, retry_unknown=args.retry_unknown)
     if args.command == "create":
         source = load(args.source)
         models = model_config_for_source(load(args.models), source, args.language, args.project_config)

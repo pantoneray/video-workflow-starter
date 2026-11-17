@@ -2,9 +2,9 @@
 
 供团队成员在自己的 Mac 与 Codex 中使用的视频工作流 Skill：批量切片、资料选文与译审、HeyGen 校对制作、字幕包装和 YouTube 私密上传。保留各自的剪辑软件，机械操作由包内脚本执行，审核与账号授权由本人完成。
 
-**当前版本：v2.3.22-rc.10。** 从下方入口安装，按需要选择功能。
+**当前版本：v2.3.22-rc.11。** 从下方入口安装，按需要选择功能。
 
-- [下载安装包](https://github.com/pantoneray/video-workflow-starter/releases/tag/v2.3.22-rc.10)（下载命名为 `video-workflow-starter-2.3.22-rc.10.zip` 的附件）
+- [下载安装包](https://github.com/pantoneray/video-workflow-starter/releases/tag/v2.3.22-rc.11)（下载命名为 `video-workflow-starter-2.3.22-rc.11.zip` 的附件）
 - [新版安装、步骤介绍与可复制指令](GETTING_STARTED.md)
 - [普通使用说明](普通使用说明.md) · [老用户升级与回滚](UPGRADE.md)
 - [平台账号配置](INTEGRATIONS.md)
@@ -16,7 +16,7 @@
 https://github.com/pantoneray/video-workflow-starter
 
 请先读 README.md、GETTING_STARTED.md、UPGRADE.md 和 INTEGRATIONS.md。
-本次安装 v2.3.22-rc.10，请从该版本 Release 下载完整 ZIP
+本次安装 v2.3.22-rc.11，请从该版本 Release 下载完整 ZIP
 及对应 SHA256 文件，不要从 latest 链接误装旧正式版，也不要另行克隆私有依赖。
 
 识别我的系统。先问我需要哪些功能：批量切片、资料选文与译审、
@@ -58,7 +58,7 @@ HeyGen 用本人 OAuth；YouTube 核对本人授权的账号与目标频道。
 
 ## 老用户须注意
 
-**不升级不受影响。** 升级后，新建/返修译稿需要补充 Google Cloud Translation API 配置，旧 Gemini-only 配置会停止并提示；不会静默替换提供方。其他独立步骤不因此停用。
+**不升级不受影响。** 升级后，新建/返修译稿需要补充 Google Cloud Translation API 配置，缺少 Google 配置时，由 Codex 引导补配并保留已有任务和结果；用户也可先继续其他独立步骤。只有用户明确同意本次临时使用 Gemini 回译，才执行并标明实际提供方，不自动改默认配置。其他独立步骤不因此停用。
 
 字幕默认自动选模板且位置有调整；要保持旧样式，明确指定旧模板与位置（`--shift-up 0`）。历史批准不自动迁移到新审核轮次。个人配置、素材和产物保留在包外，更新后在最终安装位置重建依赖并运行 `project sync`。
 
