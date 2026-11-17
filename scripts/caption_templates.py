@@ -10,6 +10,7 @@ import re
 import shutil
 import subprocess
 import sys
+from caption_selection import plan as caption_plan
 
 ROOT = Path(__file__).resolve().parents[1]
 VENDOR = ROOT / 'tools' / 'shorts-caption-templates'
@@ -71,7 +72,8 @@ def validate_words(data, approved, duration):
     return words
 
 
-def render(video, words, approved_text, out, template='D', language='en', ffmpeg=None, spec=None):
+def render(video, words, approved_text, out, template='auto', language='en', ffmpeg=None, spec=None,
+           shift_up=80, highlight=None, course=None, contrast=None, phrase_alignment=False):
     paths = [Path(p).expanduser().resolve(strict=True) for p in (video, words, approved_text)]
     video, words, approved_text = paths
     before = {str(p): digest(p) for p in paths}
@@ -85,13 +87,22 @@ def render(video, words, approved_text, out, template='D', language='en', ffmpeg
     validate_words(data, approved_text.read_text(encoding='utf-8-sig'), duration)
     if template == 'A':
         raise ValueError('Template A uses a landscape window; this workflow requires full-bleed portrait')
-    spec_path = Path(spec).resolve(strict=True) if spec else next((VENDOR / 'specs').glob(template + '_*.json'))
-    settings = json.loads(spec_path.read_text(encoding='utf-8'))
-    if settings['layout']['mode'] == 'threeband':
-        raise ValueError('Choose a full-bleed portrait template')
     executable = renderer_ffmpeg(ffmpeg)
     out = Path(out).expanduser().resolve()
     out.mkdir(parents=True, exist_ok=False)  # exclusive per-run output, also prevents duplicate runs
+    try:
+        settings, background = caption_plan(video, VENDOR, template=template, spec=spec,
+                                            shift_up=shift_up, highlight=highlight, course=course,
+                                            contrast=contrast, ffmpeg=executable)
+    except Exception as exc:
+        (out / 'background-check.json').write_text(json.dumps({
+            'state': 'failed_render_not_started', 'error_type': type(exc).__name__,
+            'source_sha256': before[str(video)]}, indent=2), encoding='utf-8')
+        raise
+    background['source_sha256'] = before[str(video)]
+    (out / 'background-check.json').write_text(json.dumps(background, ensure_ascii=False, indent=2), encoding='utf-8')
+    if phrase_alignment:
+        settings['captions'].update(animation='phrase', max_words=1, max_chars_latin=64)
     local_spec = out / 'template.json'
     local_spec.write_text(json.dumps(settings, ensure_ascii=False, indent=2), encoding='utf-8')
     cmd = [sys.executable, str(VENDOR / 'scripts' / 'apply_template.py'),
@@ -121,6 +132,11 @@ def render(video, words, approved_text, out, template='D', language='en', ffmpeg
                'output_sha256': digest(final), 'preserve_text': True, 'static_camera': True,
                'ffmpeg': executable, 'decode': 'PASS', 'input_unchanged': True,
                'alignment_provenance': 'caller_supplied_requires_actual_audio_alignment',
+               'alignment_unit': 'phrase' if phrase_alignment else 'word',
+               'caption_y': settings['captions']['y_center'], 'highlight': settings['captions'].get('highlight'),
+               'course_badge': settings.get('course_badge'), 'contrast': background['applied_contrast'],
+               'background_check': str(out / 'background-check.json'),
+               'template_selection': background['selection'],
                'pending': ['face_and_head_safety', 'phone_readability', 'listen_and_lip_sync',
                            'silent_mouth_check', 'loudness_measurement']}
     (out / 'receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
@@ -131,13 +147,22 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ('video', 'words', 'approved-text', 'out'):
         p.add_argument('--' + name, required=True)
-    p.add_argument('--template', choices=list('ABCDEF'), default='D')
+    p.add_argument('--template', choices=['auto'] + list('ABCDEF'), default='auto')
     p.add_argument('--language', required=True)
     p.add_argument('--spec', help='Optional local copy of a full-bleed template specification')
     p.add_argument('--ffmpeg', help='Optional executable with libass; otherwise auto-detect locally')
+    p.add_argument('--shift-up', type=float, default=80, help='Pixels upward from chosen spec; use 0 for original position')
+    p.add_argument('--highlight', help='yellow, green or #RRGGBB for templates with emphasis color')
+    p.add_argument('--contrast', choices=['outline', 'box', 'template'], help='Override contrast; template keeps original styling')
+    p.add_argument('--course-name')
+    p.add_argument('--course-source')
+    p.add_argument('--course-confirmed', action='store_true')
+    p.add_argument('--phrase-alignment', action='store_true', help='Input items are aligned phrases, not individual word timestamps')
     args = p.parse_args()
+    course = {'text': args.course_name, 'source': args.course_source, 'confirmed': args.course_confirmed} if args.course_name else None
     print(json.dumps(render(args.video, args.words, args.approved_text, args.out, args.template,
-                            args.language, args.ffmpeg, args.spec), ensure_ascii=False, indent=2))
+                            args.language, args.ffmpeg, args.spec, args.shift_up, args.highlight, course, args.contrast,
+                            args.phrase_alignment), ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':

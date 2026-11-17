@@ -40,14 +40,18 @@ class ReviewTests(unittest.TestCase):
                 return {"items": [{"id": "1", "review": "需核对术语"}]}
             return {"items": [{"id": "1", "translation": "Compassion begins in everyday life"}]}
 
+        def back(target, language):
+            prompts.append((target, "google-translate-nmt"))
+            return {"text": "慈悲从日常开始", "provider": "google_translate"}
+
         source = {"original_exact": "慈悲从日常开始", "file": "book.md", "locator": "line 12"}
         models = {"translation_model": "model-a", "review_model": "model-b", "backtranslation_model": "model-c"}
-        v1 = create_item(source, "English", models, provider)
+        v1 = create_item(source, "English", models, provider, backtranslation_call=back)
         self.assertEqual(len(prompts), 4)
         self.assertNotIn("Compassion begins in everyday life", prompts[1][0])
         self.assertNotIn(source["original_exact"], prompts[2][0])
         self.assertEqual(prompts[1][1], "model-b")
-        self.assertEqual(prompts[2][1], "model-c")
+        self.assertEqual(prompts[2][1], "google-translate-nmt")
         self.assertEqual(prompts[3][1], "model-b")
         self.assertEqual(v1["independent_translation"], "Compassion starts in daily life")
         with self.assertRaises(ValueError):
@@ -60,7 +64,7 @@ class ReviewTests(unittest.TestCase):
         altered = dict(v1, blind_backtranslation="未经审核的改动")
         with self.assertRaises(ValueError):
             verify_approval(altered, approval)
-        v2 = make_version(source, "English", "Compassion starts with daily conduct", models, provider, previous=v1)
+        v2 = make_version(source, "English", "Compassion starts with daily conduct", models, provider, previous=v1, backtranslation_call=back)
         self.assertEqual(v2["version"], 2)
         self.assertEqual(v2["human_decision"], "pending")
         self.assertNotEqual(approval["translation_sha256"], v2["translation_sha256"])

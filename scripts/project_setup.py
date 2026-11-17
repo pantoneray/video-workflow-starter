@@ -7,6 +7,7 @@ from pathlib import Path
 
 from config_paths import resolve_path
 
+RULES = Path(__file__).resolve().parents[1] / "references" / "project-rules.md"
 MEMORY = "VIDEO-WORKFLOW-MEMORY.md"
 MARKER = "<!-- video-workflow-starter: read VIDEO-WORKFLOW-MEMORY.md before video tasks -->"
 BEGIN = "<!-- video-workflow-starter: config begin -->"
@@ -53,7 +54,7 @@ def memory_block(config_path, report):
         for item in entry.get("items", []):
             lines.append(f"- `{item['path']}`")
         lines.append("")
-    lines.extend(["## 使用规则", "", "选文与画面准备并行；文案出处和画面来源分别记录。译审、人审与付费授权按各任务独立记录。", "", "私密配置文件：`" + str(Path(config_path).expanduser().resolve()) + "`", END])
+    lines.extend(["## 使用规则", "", RULES.read_text(encoding="utf-8").strip(), "", "私密配置文件：`" + str(Path(config_path).expanduser().resolve()) + "`", END])
     return "\n".join(lines)
 
 
@@ -83,9 +84,9 @@ def initialize(config_path, project_root, sync=False):
         body = agents.read_text(encoding="utf-8")
         if MARKER not in body:
             with agents.open("a", encoding="utf-8") as out:
-                out.write("\n" + MARKER + "\n视频任务先读本项目的 `VIDEO-WORKFLOW-MEMORY.md`；按需检查私密配置的路径。\n")
+                out.write("\n" + MARKER + "\n视频任务先读本项目的 `VIDEO-WORKFLOW-MEMORY.md`；遵守其中通用制作规则，并按需读取已安装的 `video-workflow-starter/SKILL.md`；用户本次明确要求优先，规则冲突先说明，不覆盖本项目已有规则。\n")
     else:
-        agents.write_text("# 项目规则\n\n" + MARKER + "\n视频任务先读本项目的 `VIDEO-WORKFLOW-MEMORY.md`；按需检查私密配置的路径。\n", encoding="utf-8")
+        agents.write_text("# 项目规则\n\n" + MARKER + "\n视频任务先读本项目的 `VIDEO-WORKFLOW-MEMORY.md`；遵守其中通用制作规则，并按需读取已安装的 `video-workflow-starter/SKILL.md`；用户本次明确要求优先，规则冲突先说明，不覆盖本项目已有规则。\n", encoding="utf-8")
     return {"memory": str(memory), "agents": str(agents), "paths": report}
 
 

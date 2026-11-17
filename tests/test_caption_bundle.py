@@ -21,9 +21,12 @@ class CaptionBundleTests(unittest.TestCase):
             field = {'independent_translation': 'translation', 'backtranslation': 'backtranslation',
                      'independent_review': 'review'}[stage]
             return {'items': [{'id': '1', field: 'Independent result'}]}
+        def back(target, language):
+            calls.append(("backtranslation", target))
+            return {"text": "Independent result", "provider": "google_translate"}
         result = create_item({'original_exact': 'Original passage', 'file': 'book.txt', 'locator': 'line 1'},
                              'en', {'review_model': 'review', 'backtranslation_model': 'back'},
-                             draft='Keep My Draft.', draft_author='Codex', stage_call=call)
+                             draft='Keep My Draft.', draft_author='Codex', stage_call=call, backtranslation_call=back)
         self.assertEqual(result['translation'], 'Keep My Draft.')
         self.assertEqual(result['models']['translation'], 'Codex')
         self.assertEqual([x[0] for x in calls], ['independent_translation', 'backtranslation', 'independent_review'])
@@ -62,6 +65,11 @@ class CaptionBundleTests(unittest.TestCase):
             out = root / "user's output"
             receipt = render(video, words, approved, out, language='en', ffmpeg=executable)
             self.assertEqual(receipt['state'], 'technical_pass_visual_review_pending')
+            background = json.loads((out / 'background-check.json').read_text())
+            self.assertEqual(len(background['samples']), 9)
+            self.assertEqual(background['source_sha256'], before)
+            self.assertEqual(receipt['template_selection'], 'automatic_sample_recommendation')
+            self.assertTrue(receipt['template'].startswith('D'))
             self.assertEqual(digest(video), before)
             ass = (out / 'final.ass').read_text()
             events = [line for line in ass.splitlines() if line.startswith('Dialogue:') and ',Cap,' in line]
@@ -71,6 +79,28 @@ class CaptionBundleTests(unittest.TestCase):
             for word in ('Keep', 'This,', 'Text.'):
                 self.assertIn(word, visible)
             self.assertTrue((out / 'final.png').is_file())
+            phrases = root / 'phrases.json'
+            phrases.write_text(json.dumps({'segments': [{'words': [
+                {'word': 'Keep This, Text.', 'start': .1, 'end': 1.8}]}]}))
+            phrase_out = root / 'phrase-output'
+            phrase_receipt = render(video, phrases, approved, phrase_out, template='B',
+                                    language='en', ffmpeg=executable, phrase_alignment=True)
+            self.assertEqual(phrase_receipt['alignment_unit'], 'phrase')
+            phrase_spec = json.loads((phrase_out / 'template.json').read_text())
+            self.assertEqual(phrase_spec['captions']['animation'], 'phrase')
+            phrase_events = [line for line in (phrase_out / 'final.ass').read_text().splitlines()
+                             if line.startswith('Dialogue:') and ',Cap,' in line]
+            self.assertEqual(len(phrase_events), 1)
+            self.assertIn('Keep This, Text.', re.sub(r'\{[^}]*\}', '', phrase_events[0]))
+            self.assertEqual(digest(video), before)
+            from unittest.mock import patch
+            failed = root / 'assessment-failure'
+            with patch('caption_templates.caption_plan', side_effect=ValueError('sample decode failed')):
+                with self.assertRaises(ValueError):
+                    render(video, words, approved, failed, language='en', ffmpeg=executable)
+            self.assertFalse((failed / 'final.mp4').exists())
+            self.assertEqual(json.loads((failed / 'background-check.json').read_text())['state'],
+                             'failed_render_not_started')
             with self.assertRaises(FileExistsError):
                 render(video, words, approved, out, language='en', ffmpeg=executable)
             with self.assertRaises(ValueError):

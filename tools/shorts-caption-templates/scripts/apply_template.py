@@ -151,6 +151,12 @@ def build_ass(t,words,a,dur):
             stl='Big' if i%2==0 else 'Small'
             lh=int((ov['size_big'] if stl=='Big' else ov['size_small'])*1.25)
             add(i*step,min(dur,a.overlay_dur),f'{{\\an8\\pos({W//2},{yy})\\fad(80,200)\\fscx120\\fscy120\\t(0,120,\\fscx100\\fscy100)}}'+esc(p),stl,3); yy+=lh
+    badge=t.get('course_badge')
+    if badge:
+        if badge.get('confirmed') is not True or not badge.get('source'):
+            raise ValueError('Course badge requires confirmed source')
+        style('Course',F['sans_med'],32,'#FFFFFF',2,0,align=7,box=True,boxcol='#111111')
+        add(0,dur,'{\\an7\\pos(150,250)}'+esc(badge['text']),'Course',2)
     head=f'''[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}

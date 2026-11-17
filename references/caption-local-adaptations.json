@@ -1,0 +1,12 @@
+{
+  "upstream_reference": "caption-upstream.json",
+  "adaptation": "20261117-review-upgrade-dev",
+  "notes": "Upstream hashes preserved separately; local course badge and task options modified. Not a release.",
+  "files_sha256": {
+    "scripts/caption_templates.py": "5f5478d11a003b0e57a5d845b4eee0c1d03d4b83047148a246718164f2906763",
+    "scripts/caption_options.py": "ec157b8fae787217b6488ecf3f50235b2aa3d19d30f160d7579b5b888790d45d",
+    "scripts/caption_contrast.py": "f8c79e6d0d76c4bfa44eb16085acd395acf46b0c8d48f944bc5dfc57b009b62c",
+    "tools/shorts-caption-templates/scripts/apply_template.py": "6055a145dee6471638f12c2a89a85cde876a99a88ea292bde0f5a3d812b4274d",
+    "scripts/caption_selection.py": "d98991f0142a060438ea2a8d7090723438fd0f745c135407cb78f813323cdffa"
+  }
+}

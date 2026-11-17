@@ -16,7 +16,7 @@ class PublicationTests(unittest.TestCase):
         approval = human_decision(version, "human", "approve", "核对通过")
         result = draft(version, approval, "model-a", lambda prompt, model: {
             "title": "Daily compassion", "description": "A short reflection", "tags": ["compassion"],
-            "cover_text": "Compassion"})
+            "cover_text": "Compassion", "body_evidence": {"title": "Compassion begins daily", "cover_text": "Compassion"}})
         self.assertEqual(result["status"], "pending_human_review")
         version["translation"] = "Changed"
         version["translation_sha256"] = sha("Changed")

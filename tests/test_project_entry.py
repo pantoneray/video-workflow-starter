@@ -56,6 +56,26 @@ class ProjectEntryTests(unittest.TestCase):
             candidate = json.loads(output.read_text())["results"][0]
             self.assertEqual(candidate["file"], str((corpus / "book.md").resolve()))
 
+    def test_init_and_sync_merge_rules_preserve_user_content(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            config = root / "config.json"
+            config.write_text(json.dumps({"paths": {}}))
+            agents = root / "AGENTS.md"
+            agents.write_text("# 用户规则\n自定义内容\n")
+            initialize(config, root)
+            memory = root / "VIDEO-WORKFLOW-MEMORY.md"
+            text = memory.read_text()
+            for term in ("Google Translate", "Proofread", "30–45", "captions", "私密上传"):
+                self.assertIn(term, text)
+            memory.write_text(text + "\n用户备注保留\n")
+            initialize(config, root, sync=True)
+            initialize(config, root, sync=True)
+            self.assertEqual(memory.read_text().count("# 本项目视频制作规则"), 1)
+            self.assertIn("用户备注保留", memory.read_text())
+            self.assertTrue(agents.read_text().startswith("# 用户规则\n自定义内容\n"))
+            self.assertIn("video-workflow-starter/SKILL.md", agents.read_text())
+
     def test_initialize_and_missing_disk(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from glossary_tools import select as select_glossary
+from google_backtranslation import backtranslate as google_backtranslate, preflight as backtranslation_preflight
 
 SPOKEN_RULE = "口播使用可直接朗读的自然目标语，不用中英文括号插入解释；必要含义写成自然口语，仅供查阅的术语释义放在审稿备注。保留否定、限定语与原意。"
 
@@ -152,7 +153,9 @@ def prompt_terms(glossary):
     return json.dumps(result, ensure_ascii=False)
 
 
-def create_item(source, target_language, model_config, provider=gemini_json, stage_call=None, draft=None, draft_author=None):
+def create_item(source, target_language, model_config, provider=gemini_json, stage_call=None, draft=None, draft_author=None, backtranslation_call=None):
+    if backtranslation_call is None:
+        backtranslation_preflight(model_config)
     if not source.get("original_exact") or not source.get("file") or not source.get("locator"):
         raise ValueError("缺原文或可核查出处")
     original = source["original_exact"]
@@ -160,24 +163,24 @@ def create_item(source, target_language, model_config, provider=gemini_json, sta
         if not draft_author or not draft_author.strip():
             raise ValueError("传入初译须注明真实来源，如 Codex 或人工译者")
         return make_version(source, target_language, draft, model_config, provider,
-                            translation_model=draft_author.strip(), stage_call=stage_call)
+                            translation_model=draft_author.strip(), stage_call=stage_call, backtranslation_call=backtranslation_call)
     glossary = model_config.get("glossary", [])
     translation_model = model_config["translation_model"]
     review_model = model_config["review_model"]
-    back_model = model_config["backtranslation_model"]
     call = stage_call or (lambda stage, prompt, model: provider(prompt, model))
     tr = call("translation", "将以下中文原文译为 " + target_language + "，保留数字、专名和含义。" + SPOKEN_RULE + "术语参考：" + prompt_terms(glossary) + "。只返回 JSON {\"items\":[{\"id\":\"1\",\"translation\":\"...\"}]}。原文：\n" + original, translation_model)
     target = items_by_id(tr, ["1"], "translation")["1"]
     return make_version(source, target_language, target, model_config, provider,
-                        translation_model=translation_model, stage_call=stage_call)
+                        translation_model=translation_model, stage_call=stage_call, backtranslation_call=backtranslation_call)
 
 
-def make_version(source, target_language, target, model_config, provider=gemini_json, translation_model=None, previous=None, feedback_response=None, stage_call=None):
+def make_version(source, target_language, target, model_config, provider=gemini_json, translation_model=None, previous=None, feedback_response=None, stage_call=None, backtranslation_call=None):
+    if backtranslation_call is None:
+        backtranslation_preflight(model_config)
     if not target.strip():
         raise ValueError("译稿为空")
     original = source["original_exact"]
     review_model = model_config["review_model"]
-    back_model = model_config["backtranslation_model"]
     glossary = model_config.get("glossary", [])
     call = stage_call or (lambda stage, prompt, model: provider(prompt, model))
     independent_prompt = ("独立翻译以下中文原文为 " + target_language +
@@ -185,9 +188,11 @@ def make_version(source, target_language, target, model_config, provider=gemini_
                           "。只返回 JSON {\"items\":[{\"id\":\"1\",\"translation\":\"...\"}]}。中文原文：\n" + original)
     independent = items_by_id(call("independent_translation", independent_prompt, review_model),
                               ["1"], "translation")["1"]
-    # Blind call: the prompt contains target only; no source text or source path.
-    back_prompt = "只根据下面的 " + target_language + " 文本回译为中文；不猜测隐藏原文。只返回 JSON {\"items\":[{\"id\":\"1\",\"backtranslation\":\"...\"}]}。\n" + target
-    back = items_by_id(call("backtranslation", back_prompt, back_model), ["1"], "backtranslation")["1"]
+    # This service receives target only. Gemini independently translates/reviews.
+    back_evidence = (backtranslation_call or google_backtranslate)(target, target_language)
+    back = back_evidence.get("text")
+    if not isinstance(back, str) or not back.strip() or back_evidence.get("provider") != "google_translate":
+        raise ValueError("Google Translate 盲回译证据缺失或提供方不符")
     review_prompt = "你是独立译审。先前你仅根据中文原文给出的独立译文如下；现在比较原文、当前译稿与独立译文，指出漏译、增译、误义和术语问题。不要自称人工批准。只返回 JSON {\"items\":[{\"id\":\"1\",\"review\":\"...\"}]}。术语参考：" + prompt_terms(glossary) + "\n中文原文：\n" + original + "\n当前译稿：\n" + target + "\n独立译文：\n" + independent
     review_prompt += "\n口播检查：" + SPOKEN_RULE + "发现括号解释时明确标记为需返修，不能直接删字冒充原稿已通过。"
     review = items_by_id(call("independent_review", review_prompt, review_model), ["1"], "review")["1"]
@@ -197,7 +202,8 @@ def make_version(source, target_language, target, model_config, provider=gemini_
             "blind_backtranslation": back, "independent_translation": independent,
             "independent_review": review,
             "models": {"translation": translation_model or "human_revision", "review": review_model,
-                       "backtranslation": back_model}, "glossary": glossary,
+                       "backtranslation": "google-translate-nmt"}, "glossary": glossary,
+            "backtranslation_evidence": back_evidence,
             "previous_version": None if previous is None else previous["version"],
             "feedback_response": feedback_response,
             "human_decision": "pending", "human_reviewer": None, "human_feedback": None}
@@ -267,9 +273,12 @@ def main():
     if args.command in ("create", "revise") and not args.confirm_external:
         p.error("模型调用会发送资料到服务商；需明确 --confirm-external")
     if args.command in ("create", "revise"):
+        backtranslation_preflight(load(args.models))
         stage_dir = Path(args.out).with_suffix(Path(args.out).suffix + ".stages")
         stage_call = lambda stage, prompt, model: model_stage(
             stage, prompt, model, stage_dir, retry_unknown=args.retry_unknown)
+        backtranslation_call = lambda target, language: google_backtranslate(
+            target, language, workdir=stage_dir, retry_unknown=args.retry_unknown)
     if args.command == "create":
         source = load(args.source)
         models = model_config_for_source(load(args.models), source, args.language, args.project_config)
@@ -277,7 +286,7 @@ def main():
         if bool(args.draft) != bool(args.draft_author):
             p.error('--draft 与 --draft-author 须一起提供')
         result = create_item(source, args.language, models, stage_call=stage_call,
-                             draft=draft, draft_author=args.draft_author)
+                             draft=draft, draft_author=args.draft_author, backtranslation_call=backtranslation_call)
     elif args.command == "revise":
         previous = load(args.previous)
         prior_decision = load(args.previous_decision)
@@ -291,7 +300,8 @@ def main():
         result = make_version(previous["source"], previous["target_language"], target,
                               models, previous=previous,
                               feedback_response={"previous_feedback": prior_decision.get("feedback"),
-                                                 "response": args.feedback_response}, stage_call=stage_call)
+                                                 "response": args.feedback_response}, stage_call=stage_call,
+                              backtranslation_call=backtranslation_call)
     elif args.command == "decide":
         result = human_decision(load(args.version), args.reviewer, args.decision, args.feedback)
     else:

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from config_paths import resolve_path
 
-ALLOWED = {".md", ".markdown", ".txt", ".pdf"}
+ALLOWED = {".md", ".markdown", ".txt", ".pdf", ".srt"}
 LEADING_REFERENCE = re.compile(r"^(?:这|那|此|其|他|她|它|上述|前者|后者|因此|所以|但是|然而|接着|这里|这种|那种)")
 CONTEXT_DEPENDENT = re.compile(r"^(?:因此|所以|但是|然而|接着|例如|比如|第二|第三|其二|其三|如上所说|前面提到)")
 
@@ -39,6 +39,16 @@ def candidate_risks(original, before_item, after_item, section, hits, depth):
 
 
 def passages(path):
+    if path.suffix.lower() == ".srt":
+        content = path.read_text(encoding="utf-8-sig")
+        for block in re.split(r"\r?\n\s*\r?\n", content.strip()):
+            lines = block.splitlines()
+            if len(lines) < 3 or not re.fullmatch(r"\d+", lines[0].strip()) or " --> " not in lines[1]:
+                yield {"text": "", "locator": "unknown", "warning": "invalid_srt_block"}
+                continue
+            yield {"text": "\n".join(lines[2:]), "locator": f"SRT {lines[0]} | {lines[1]}",
+                   "section": "", "srt_index": lines[0], "timecode": lines[1]}
+        return
     if path.suffix.lower() == ".pdf":
         try:
             from pypdf import PdfReader

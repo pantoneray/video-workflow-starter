@@ -7,8 +7,14 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-OPTIONAL_VENV = {"source", "heygen-api", "youtube", "package", "captions", "cover", "publication-review", "delivery"}
+OPTIONAL_VENV = {"source", "source-select", "heygen-api", "youtube", "package", "captions", "cover", "publication-review", "delivery"}
 STAGES = {
+    "notion-check": "notion_preflight.py", "notion-ingest": "notion_review_ingest.py",
+    "hook-preview": "hook_preview.py",
+    "hook-copy": "hook_copy.py",
+    "source-select": "source_scope.py", "review-html": "review_html.py",
+    "review-serve": "review_receiver.py", "review-dispatch": "review_dispatch.py",
+    "caption-contrast": "caption_contrast.py",
     "batch-clips": "batch_clips.py",
     "env": "check_env.py", "guide": "guide.py", "project": "project_setup.py", "source": "source_search.py",
     "review": "translation_review.py", "review-packet": "review_bundle.py", "scan": "select_candidates.py", "scan-long": "scan_long.py",

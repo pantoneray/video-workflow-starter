@@ -55,7 +55,10 @@ class GlossaryTests(unittest.TestCase):
                 field = {"independent_translation": "translation", "backtranslation": "backtranslation",
                          "independent_review": "review"}[stage]
                 return {"items": [{"id": "1", field: "checked"}]}
-            v1 = make_version(source, "English", "Compassion starts daily", first, stage_call=stage_call)
+            def back(target, language):
+                calls.append(("backtranslation", target))
+                return {"text": "checked", "provider": "google_translate"}
+            v1 = make_version(source, "English", "Compassion starts daily", first, stage_call=stage_call, backtranslation_call=back)
             self.assertIn("compassion", calls[0][1])
             self.assertNotIn(str(terms), calls[0][1])
             self.assertNotIn(first["glossary"][0]["source_sha256"], calls[0][1])
@@ -67,7 +70,7 @@ class GlossaryTests(unittest.TestCase):
             terms.write_text("source,target,language\n慈悲,loving kindness,English\n")
             second = model_config_for_source(base, source, "English", project, v1)
             v2 = make_version(source, "English", "Compassion starts daily", second,
-                              previous=v1, stage_call=stage_call)
+                              previous=v1, stage_call=stage_call, backtranslation_call=back)
             self.assertNotEqual(v1["glossary"], v2["glossary"])
             with self.assertRaises(ValueError):
                 verify_approval(v2, approval)
