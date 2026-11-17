@@ -1,6 +1,6 @@
 # 安装与逐步使用：v2.3.22-rc.10
 
-这是可安装试用的预发布版。Mac 为目标平台，另一台 Mac 尚未实测；Windows 本版未验收。可以只用其中一个步骤，不强迫跑完整条流程。
+可以只用其中一个步骤，也可以按顺序完成制作。以下终端示例使用 Mac；Windows 使用包内 install.ps1，HeyGen 网页校对路线需 WSL，配置见 INTEGRATIONS.md。
 
 ## 1. 安装与项目配置
 
@@ -19,7 +19,7 @@ python3 workflow.py project sync --config <项目/video-config.json> --project-r
 python3 workflow.py guide --config <项目/video-config.json>
 ```
 
-基础依赖为 Python 3.9+、FFmpeg/FFprobe；本地音频对齐建议 Python 3.11/3.12。Mac 首次运行按 [验收清单](references/mac-first-install-check.md)。刷新或重启 Codex 加载 Skill。项目初始化会写入通用制作规则，保留既有 AGENTS.md 内容与个人备注；不会安装生产调度系统。
+基础依赖为 Python 3.9+、FFmpeg/FFprobe；本地音频对齐建议 Python 3.11/3.12。安装后让 Codex 执行环境检查和离线样本，确认需要的功能可运行。刷新或重启 Codex 加载 Skill。项目初始化会写入通用制作规则，保留既有 AGENTS.md 内容与个人备注。
 
 ## 2. 批量切片
 
@@ -61,8 +61,8 @@ python3 workflow.py guide --config <项目/video-config.json>
 
 安装：`sh ./install.sh youtube`；按 [集成说明](INTEGRATIONS.md) 配置自己的 Desktop OAuth JSON、频道与账号。入口：`python3 workflow.py youtube --help`。此授权不涵盖公开发布；状态不明时查原任务，不盲目重复上传。
 
-## 7. 保存、升级与未验收功能
+## 7. 保存与升级
 
 所有任务输出独立保存；需要统一移交清单才使用 `python3 workflow.py delivery --help`。审核、批准与实际质检记录即使不用清单也要保留。
 
-Notion完整审核、自动打开新版审核页、约3秒钩子自动达标、跨Mac/Windows安装仍未验收或未完成，详见 [README](README.md#还不能当作已验收能力)。更新与回滚按 [UPGRADE.md](UPGRADE.md)；不要把个人资料或凭据上传回仓库。
+审核使用本地 HTML；改稿后打开新链接。开头预览不保证恰好3秒，需检查实际时长与听感。其他使用条件见 [README](README.md#使用时需要注意)。更新与回滚按 [UPGRADE.md](UPGRADE.md)；不要把个人资料或凭据上传回仓库。
