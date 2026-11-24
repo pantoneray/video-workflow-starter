@@ -41,6 +41,9 @@ def verify_source(source):
     raw = Path(source["file"]).read_bytes()
     if hashlib.sha256(raw).hexdigest() != source["sha256"]:
         raise ValueError("source file hash changed")
+    if source.get('metadata_file'):
+        if hashlib.sha256(Path(source['metadata_file']).read_bytes()).hexdigest() != source.get('metadata_sha256'):
+            raise ValueError('source metadata hash changed')
     text = raw.decode("utf-8-sig")
     start, end = source["start"], source["end"]
     if (type(start) is not int or type(end) is not int or not 0 <= start < end <= len(text)

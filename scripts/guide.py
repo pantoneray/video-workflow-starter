@@ -22,7 +22,7 @@ GUIDANCE = {
                 "next": "复制 config.example.json 到包外项目，填本人路径；运行 workflow.py project check/init，项目记忆会保留这些路径。",
                 "human": "确认资料与素材使用权；扫描 PDF 先 OCR。"},
     "source": {"needs": "已配置的生活应用或深入法义语料；主题示例可在项目内修改",
-               "next": "用 workflow.py source 在指定主题和语料范围生成带出处候选；核对原文、上下文、章节与断章风险。",
+               "next": "共享知识库先用 library update 检查更新（失败询问是否沿用本地），再用 workflow.py source 在指定主题和语料范围生成带出处候选；核对原文、上下文、章节与断章风险。",
                "human": "选文须人工确认；深入法义须专业审核。"},
     "clips": {"needs": "已配置的视频素材目录与本机 FFmpeg；可与选文同时进行",
               "next": "用 workflow.py scan 或 scan-long 默认扫描全视频，运行 scan review 连续检查候选及特殊手势/低头，scan choose 一次选多条不重叠候选，再运行 slice 和 qc；切片写新目录。",
@@ -84,8 +84,8 @@ def path_blockers(stage, report):
     blockers = []
     if report.get("output") != "ready":
         blockers.append("output")
-    if stage == "source" and not any(report.get(name) == "ready" for name in ("life_corpus", "deep_corpus")):
-        blockers.append("life_corpus 或 deep_corpus")
+    if stage == "source" and not any(report.get(name) == "ready" for name in ("life_corpus", "deep_corpus", "libraries")):
+        blockers.append("life_corpus、deep_corpus 或已登记知识库")
     if stage == "clips" and report.get("video_sources") != "ready":
         blockers.append("video_sources")
     if stage == "translation" and report.get("glossary") != "ready":

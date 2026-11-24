@@ -110,7 +110,7 @@ def selected_files(config, scope, max_files, max_bytes, base_dir=None):
                 yield group, path, None
 
 
-def search(config, themes, theme_id, max_files=500, max_bytes=20_000_000, max_results=30, base_dir=None):
+def search_files(config, themes, theme_id, max_files=500, max_bytes=20_000_000, max_results=30, base_dir=None):
     theme = next((x for x in themes["themes"] if x.get("id") == theme_id), None)
     if not theme or not theme.get("enabled", False):
         raise ValueError("主题不存在或已停用")
@@ -180,6 +180,28 @@ def search(config, themes, theme_id, max_files=500, max_bytes=20_000_000, max_re
             "coverage": "已检查指定范围内的文件；不支持或过大的文件列在 warnings，未纳入候选"}
 
 
+def search(config, themes, theme_id, max_files=500, max_bytes=20_000_000, max_results=30, base_dir=None):
+    if not config.get('libraries'):
+        return search_files(config, themes, theme_id, max_files, max_bytes, max_results, base_dir)
+    from knowledge_library import search_libraries
+    theme = next((x for x in themes['themes'] if x.get('id') == theme_id), None)
+    if not theme or not theme.get('enabled') or not theme.get('keywords') or not 1 <= max_results <= 1000:
+        raise ValueError('enabled theme, keywords and result limit 1..1000 required')
+    lib = search_libraries(config, theme, max_results, base_dir)
+    roots = [key for key in theme.get('source_scope', []) if config.get('paths', {}).get(key)]
+    if not lib['libraries'] and not roots:
+        raise ValueError('主题范围没有已配置资料')
+    result = {'theme': theme, 'results': lib['results'], 'warnings': lib['warnings'],
+              'files_scanned': lib['files_scanned'], 'files_skipped': 0, 'duplicates_skipped': 0,
+              'libraries': lib['libraries'], 'coverage': lib['coverage']}
+    if roots and len(result['results']) < max_results:
+        local = search_files(config, {'themes': [{**theme, 'source_scope': roots}]}, theme_id,
+                             max_files, max_bytes, max_results-len(result['results']), base_dir)
+        result['results'].extend(local['results']); result['warnings'].extend(local['warnings'])
+        result['files_scanned'] += local['files_scanned']; result['files_skipped'] = local['files_skipped']
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
@@ -192,12 +214,16 @@ def main():
     args = parser.parse_args()
     if min(args.max_files, args.max_bytes, args.max_results) < 1:
         parser.error("上限必须为正数")
+    if Path(args.out).exists():
+        parser.error("输出已存在，请使用新文件保留历史")
     result = search(json.loads(Path(args.config).expanduser().read_text(encoding="utf-8")),
                     json.loads(Path(args.themes).read_text(encoding="utf-8")), args.theme_id,
                     args.max_files, args.max_bytes, args.max_results,
                     Path(args.config).expanduser().resolve().parent)
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
+    from knowledge_library import freeze_report
+    result = freeze_report(result, out)
     with out.open("x", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
         f.write("\n")

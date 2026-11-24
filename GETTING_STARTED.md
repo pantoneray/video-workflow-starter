@@ -1,4 +1,4 @@
-# 安装与逐步使用：v2.3.22-rc.11
+# 安装与逐步使用：v2.3.22-rc.12
 
 可以只用其中一个步骤，也可以按顺序完成制作。以下终端示例使用 Mac；Windows 使用包内 install.ps1，HeyGen 网页校对路线需 WSL，配置见 INTEGRATIONS.md。
 
@@ -12,6 +12,8 @@
 sh ./check-env
 sh ./install.sh base
 # 配置 config.example.json 的副本，保存到包外项目目录后：
+python3 workflow.py env --with-library
+python3 workflow.py library setup --config <项目/video-config.json>
 python3 workflow.py project check --config <项目/video-config.json>
 python3 workflow.py project init --config <项目/video-config.json> --project-root <项目目录>
 # 已经初始化过的项目改用：
@@ -30,6 +32,11 @@ python3 workflow.py guide --config <项目/video-config.json>
 脚本参考：`python3 workflow.py batch-clips --help`。机械检测不代替完整动作审核，不保证只靠脚本识别所有遮挡、手势和低头。
 
 ## 3. 选文与翻译
+
+内置共享知识库首次由 Codex 下载到项目的 `资料库/suodj/`，并登记到本人配置。只需 Git，不需要安装 Smart Library 或配置知识库 API。已有同步目录可复用；自己的原有资料库仍可保留。
+
+开始新一轮选文时说：“更新知识库，再按这个主题给我选文候选。”脚本参考：`python3 workflow.py library update --config <项目/video-config.json>`。想先用离线资料就说明“本次沿用本地版本”。更新失败时由 Codex 询问是否沿用本地，不能说同步成功。完整入口见[知识库安装与更新](references/knowledge-library.md)。
+
 
 作用：从本人资料库按主题找原文，保留出处与上下文；逐语种形成译稿、盲回译和校对结果。
 

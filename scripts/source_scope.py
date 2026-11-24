@@ -38,6 +38,16 @@ def search_sources(config, themes, theme_id, source_type="auto", base_dir=None, 
             result['warnings'].append({'group': 'corpus', 'reason': 'index_unavailable', 'error_type': type(exc).__name__})
             # A configured index defines the corpus scope; do not silently substitute other sources.
             indexed = {'results': [], 'failed': True}
+    if source_type != 'srt' and indexed is None and config.get('libraries'):
+        from knowledge_library import search_libraries
+        library_result = search_libraries(config, theme, max_results, base_dir)
+        result['warnings'].extend(library_result['warnings'])
+        result['libraries'] = library_result['libraries']
+        if library_result['libraries']:
+            indexed = library_result
+            result['files_scanned'] += library_result['files_scanned']
+            result['retrieval'] = 'git_markdown_and_available_srt_keyword_search'
+            result['index_coverage'] = library_result['coverage']
     visited = set()
     for group in scope:
         roots = config.get("paths", {}).get(group, [])
@@ -108,8 +118,13 @@ def main():
     p.add_argument("--out", required=True)
     a = p.parse_args()
     config = Path(a.config).resolve()
+    if Path(a.out).exists():
+        p.error("输出已存在，请使用新文件保留历史")
     result = search_sources(json.loads(config.read_text()), json.loads(Path(a.themes).read_text()), a.theme_id,
                             a.source_type, config.parent)
+    from knowledge_library import freeze_report
+    Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+    result = freeze_report(result, a.out)
     with Path(a.out).open("x", encoding="utf-8") as stream:
         json.dump(result, stream, ensure_ascii=False, indent=2)
 

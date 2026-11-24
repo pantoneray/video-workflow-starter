@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 OPTIONAL_VENV = {"source", "source-select", "heygen-api", "youtube", "package", "captions", "cover", "publication-review", "delivery"}
 STAGES = {
+    "library": "knowledge_library.py",
     "notion-check": "notion_preflight.py", "notion-ingest": "notion_review_ingest.py",
     "hook-preview": "hook_preview.py",
     "hook-copy": "hook_copy.py",

@@ -2,11 +2,12 @@
 
 供团队成员在自己的 Mac 与 Codex 中使用的视频工作流 Skill：批量切片、资料选文与译审、HeyGen 校对制作、字幕包装和 YouTube 私密上传。保留各自的剪辑软件，机械操作由包内脚本执行，审核与账号授权由本人完成。
 
-**当前版本：v2.3.22-rc.11。** 从下方入口安装，按需要选择功能。
+**当前版本：v2.3.22-rc.12。** 从下方入口安装，按需要选择功能。
 
-- [下载安装包](https://github.com/pantoneray/video-workflow-starter/releases/tag/v2.3.22-rc.11)（下载命名为 `video-workflow-starter-2.3.22-rc.11.zip` 的附件）
+- [下载安装包](https://github.com/pantoneray/video-workflow-starter/releases/tag/v2.3.22-rc.12)（下载命名为 `video-workflow-starter-2.3.22-rc.12.zip` 的附件）
 - [新版安装、步骤介绍与可复制指令](GETTING_STARTED.md)
 - [普通使用说明](普通使用说明.md) · [老用户升级与回滚](UPGRADE.md)
+- [内置知识库：安装、更新和选文](references/knowledge-library.md)
 - [平台账号配置](INTEGRATIONS.md)
 
 ## 复制给 Codex，开始安装
@@ -16,7 +17,7 @@
 https://github.com/pantoneray/video-workflow-starter
 
 请先读 README.md、GETTING_STARTED.md、UPGRADE.md 和 INTEGRATIONS.md。
-本次安装 v2.3.22-rc.11，请从该版本 Release 下载完整 ZIP
+本次安装 v2.3.22-rc.12，请从该版本 Release 下载完整 ZIP
 及对应 SHA256 文件，不要从 latest 链接误装旧正式版，也不要另行克隆私有依赖。
 
 识别我的系统。先问我需要哪些功能：批量切片、资料选文与译审、
@@ -27,6 +28,10 @@ Mac 使用 install.sh；Windows 使用 install.ps1，HeyGen 网页校对路线�
 不要复用搬迁后的虚拟环境。保留原素材，把个人配置放在 Skill 目录外。
 引导我设置素材、资料库、输出目录及目标语言，然后运行 project init；
 已有本包项目记忆时用 project sync，保留我已有规则和个人备注。
+请一并准备内置知识库：检查并按需安装 Git，运行 library setup，
+把资料下载到我的项目“资料库”目录并登记路径，再刷新项目记忆。
+已有同一仓库的本地副本就复用，不重新下载。无需安装 Smart Library。
+如果我明确选择不使用此资料库，则跳过。
 
 译审需要 Google Translate 做盲回译、Gemini 做独立校对，分别引导配置。
 密钥只在本机安全保存，不要求我贴到聊天。
@@ -55,6 +60,14 @@ HeyGen 用本人 OAuth；YouTube 核对本人授权的账号与目标频道。
 - 开头钩子预览可能过长，未保证约3秒或听感合格，不能直接当批准成片。
 - 没有自动检查版本或自动保留配置更新器；按 [升级说明](UPGRADE.md) 手动更新完整包。
 - 机器预筛不能保证人物动作全部合格；检索不能保证找到所有语义相关资料；翻译不能替代人工审定。
+
+## 安装后直接使用知识库
+
+安装会由 Codex 一并执行知识库初始化，正文保存到用户项目的 `资料库/suodj/`，不用另外安装阅读软件、配置密钥或手动填写仓库地址。已在 Smart Library 同步同一仓库的用户可复用本地目录。
+
+> 更新知识库，从“著作”和“课程”里按我选的主题找文案候选，保留书名、章节和上下文，放到本次任务的审核目录。
+
+知识库与 Skill 分开更新；任务开始前由 Codex 检查更新，网络失败时询问是否沿用已下载版本。只保存本次命中的原文及出处快照，后续资料修订不替换已审核任务。详见[知识库说明](references/knowledge-library.md)。
 
 ## 老用户须注意
 

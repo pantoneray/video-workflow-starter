@@ -43,6 +43,15 @@ def check(config, base_dir=None):
             format_ok = p.is_dir() if key == "output" else (p.is_dir() or p.suffix.lower() in FORMATS.get(key, set()))
             checked.append({"path": str(p), "exists": exists, "readable": readable, "format_ok": format_ok})
         report[key] = {"status": "ready" if all(v["readable"] and v["format_ok"] for v in checked) else "unavailable", "items": checked}
+    report['libraries'] = {'status': 'not_configured', 'items': []}
+    for ident, info in config.get('libraries', {}).items():
+        path = resolve_path(info['path'], base_dir)
+        report['libraries']['items'].append({'id': ident, 'path': str(path), 'repository': info.get('repository'),
+            'status': 'disabled' if not info.get('enabled', True) else
+                      'ready' if path.is_dir() and (path / '.git').exists() else 'unavailable'})
+    active = [item for item in report['libraries']['items'] if item['status'] != 'disabled']
+    if active:
+        report['libraries']['status'] = 'ready' if all(item['status'] == 'ready' for item in active) else 'unavailable'
     return report
 
 
@@ -54,6 +63,11 @@ def memory_block(config_path, report):
         for item in entry.get("items", []):
             lines.append(f"- `{item['path']}`")
         lines.append("")
+    if report.get('libraries', {}).get('items'):
+        lines.extend(['## 共享知识库', ''])
+        for info in report['libraries']['items']:
+            ident = info['id']
+            lines.extend([f"- {ident} — {info['status']}：`{info['path']}`", ''])
     lines.extend(["## 使用规则", "", RULES.read_text(encoding="utf-8").strip(), "", "私密配置文件：`" + str(Path(config_path).expanduser().resolve()) + "`", END])
     return "\n".join(lines)
 

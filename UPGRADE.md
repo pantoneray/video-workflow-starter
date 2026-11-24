@@ -1,4 +1,4 @@
-# 从 2.3.21 升级到 v2.3.22-rc.11
+# 已安装用户升级到 v2.3.22-rc.12
 
 不升级不影响现有使用。升级前备份旧包和个人配置，按需补充以下配置。
 
@@ -9,15 +9,23 @@
 3. **历史任务**：保留旧稿、旧批准和旧收据，不自动迁移批准。新审核轮次绑定当前稿件，改稿须重审。
 4. **Notion**：不是必装项；本地HTML审核无需Notion。包内 Notion 工具需另行接入，不提供开箱即用的完整审核流程。
 
+## 本次新增知识库
+
+使用新版完整包更新代码后，Codex 执行一次 `python3 workflow.py library setup --config <本人项目/video-config.json>`。默认资料存入该配置同级的 `资料库/suodj/`，不覆盖原有 paths、模型配置、主题或其他知识库。配置变更前保存备份；已有登记只核对并复用。随后 `project sync` 刷新受管路径和规则。
+
+已有 Smart Library 同步副本时，在 setup 指令上加 `--path <已有suodj目录>`；选文期间暂不从另一工具更新同一目录。以后仅更新知识库用 `library update`，无需重装 Skill。要改动共享原文，请另存到个人资料目录，避免阻止同步。
+
 ## 更新步骤
 
 ```text
-请从 pantoneray/video-workflow-starter 的 v2.3.22-rc.11 Release 更新我的 Skill。
+请从 pantoneray/video-workflow-starter 的 v2.3.22-rc.12 Release 更新我的 Skill。
 先阅读 UPGRADE.md，备份旧技能目录，并检查个人配置、账号文件、产物是否混放其中。
 保留它们和全部原素材，把个人文件留在包外项目目录。
 核对新版 ZIP 的 SHA256，使用完整包替换技能代码，在最终目录重建需要的依赖。
 不要搬运旧虚拟环境，也不要把 .env、OAuth文件或个人配置提交到仓库。
-帮我补齐 Google Translate 盲回译配置，保留 Gemini 校对配置；密钥不贴聊天。
+本次先补装内置知识库：检查 Git，执行 library setup 并登记到原项目配置；
+已有同一仓库目录就复用，不移动资料。再运行 project sync。
+保留现有译审选择，只有我需要使用或调整译审服务时再引导配置，密钥不贴聊天。
 已有项目运行 project sync，保留已有规则和个人备注，再做环境和离线检查。
 刷新 Codex 后告诉我实际可用功能及缺项，安装期间不上传、不付费生成。
 ```

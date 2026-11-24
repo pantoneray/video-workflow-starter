@@ -67,6 +67,7 @@ def main():
     p.add_argument("--with-visual-checks", action="store_true", help="检查 Mac Vision 人脸/静音口型工具")
     p.add_argument("--with-corpus-pdf", action="store_true")
     p.add_argument("--with-align", action="store_true")
+    p.add_argument("--with-library", action="store_true", help="检查知识库同步需要的 Git")
     args = p.parse_args()
     problems = []
     if sys.version_info < (3, 9): problems.append("Python 3.9+")
@@ -92,6 +93,8 @@ def main():
                     problems.append("HeyGen CLI Proofread/SRT/Precision contract (install supported CLI version)")
             except (OSError, subprocess.TimeoutExpired):
                 problems.append("HeyGen CLI executable")
+    if args.with_library and not shutil.which("git"):
+        problems.append("Git (请让 Codex 安装 Git 后再同步知识库)")
     modules = []
     if args.with_heygen_api: modules += ["requests", "requests_toolbelt"]
     if args.with_youtube: modules += ["googleapiclient", "google_auth_oauthlib", "google_auth_httplib2", "httplib2", "google.oauth2", "keyring", "PIL"]

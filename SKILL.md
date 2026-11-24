@@ -2,7 +2,7 @@
 name: video-workflow-starter
 description: 根据用户提示词从指定素材自主裁切 30–45 秒视频、提取有出处的文案并翻译复核，调用脚本上传 HeyGen 网页校对和生成下载，以及上传 YouTube 私密视频；支持人工改稿和分步继续。
 metadata:
-  version: "2.3.22-rc.11"
+  version: "2.3.22-rc.12"
 ---
 
 # 视频工作流
@@ -10,6 +10,10 @@ metadata:
 本包重点支持四项：切片、文案提取与翻译、HeyGen 上传制作、YouTube 私密上传。普通使用者先读[安装和使用说明](普通使用说明.md)；具体脚本参数见 [README.md](README.md) 和 [INTEGRATIONS.md](INTEGRATIONS.md)。验证范围见 [PROGRESS.md](PROGRESS.md)。
 
 ## 接受任务与人工干预
+
+- 首次安装或升级到本版时，按[共享知识库接入](references/knowledge-library.md)检查 Git 并执行 `library setup --config <本人配置>`，默认注册内置共享库；用户明确跳过时不下载。已有同仓库副本可用 `--path` 复用，保留本人 paths、账号与其他库，再 `project init/sync` 刷新本项目规则。无需 Smart Library 或新 API。
+- 使用共享库开始新选文任务前执行 `library update`；用户指定离线则用本地版本。更新失败询问是否沿用，未同意不冒充已更新。检索和更新顺序执行，不在审核/生成期间改源。`source`/`source-select` CLI 自动保留命中原文快照；从中取 `source` 对象交审核、hook-copy和译审，不回填 live_file，不把库更新套到历史批准。明确配置已有 SQLite 索引时 `source-select` 保留索引范围，共享库用 `source` 或另选主题。
+
 
 - Mac 首次安装按[安装验收清单](references/mac-first-install-check.md)执行并记录实际结果，跨机当前仍未验证。
 - 用户明确选择 Notion 时按需读[Notion 接入边界](references/notion-review-setup.md)：`notion-check` 仅只读预检；`notion-ingest` 仅供已登记页面的隔离适配验证，不自动启用生产。页面注册界面与真人批准未验收，保留本地 HTML 入口。
@@ -134,4 +138,6 @@ Mac 可用 `frame-check` 给构图建议、`silent-mouth inspect/trim/verify` �
 
 项目配置完成后执行 `python3 workflow.py project init --config <项目/video-config.json> --project-root <项目目录>`；已有本包项目记忆时用 `project sync`。脚本将[通用制作规则](references/project-rules.md)写入受管区域，保留区域外的个人备注及既有 AGENTS.md 内容；安装依赖本身不猜测项目路径，也不修改全局规则。
 
-- 2.3.22-rc.11：旧回译配置返回选择引导，保留任务；经本次用户明确同意可临时 Gemini 盲回译，独立标注提供方与同意来源。不得把配置待选状态或命令退出成功当成译审完成。
+- 2.3.22-rc.12：旧回译配置返回选择引导，保留任务；经本次用户明确同意可临时 Gemini 盲回译，独立标注提供方与同意来源。不得把配置待选状态或命令退出成功当成译审完成。
+
+- 2.3.22-rc.12：加入共享 Git 知识库首次下载/登记、更新与本地状态；按目录和章节元数据检索，CLI保存原文快照，保留已有配置和历史审核。

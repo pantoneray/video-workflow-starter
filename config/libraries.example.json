@@ -1,0 +1,8 @@
+{
+  "suodj": {
+    "title": "共享文案资料库",
+    "repository": "https://github.com/smartlib-lab/suodj.git",
+    "source_groups": ["life_corpus", "deep_corpus"],
+    "directories": ["著作", "译作", "课程", "开示", "大学演讲"]
+  }
+}
